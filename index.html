@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rota São Paulo</title>
 <meta name="description" content="Mototurismo no estado de São Paulo: rotas por tipo de estrada, distância e curvas, checkpoints e central de segurança.">
-<meta name="theme-color" content="#0B6E4F">
+<meta name="theme-color" content="#154734">
 <meta name="robots" content="noindex, nofollow">
 <!-- protótipo aberto por link, sem senha: fica fora dos buscadores -->
 
@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); color-scheme: light; }
 body { margin: 0; }
@@ -668,69 +668,82 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 
 /*
-  Rota São Paulo: plano de design (versão 4)
-  A interface fala a língua da sinalização viária brasileira. Placa verde de indicação para ações e números da rota,
-  placa amarela de advertência para curvas e carimbos, placa marrom de atrativo turístico, placa azul de serviço.
-  Tipo: Overpass, da linhagem da Highway Gothic das placas de rodovia, numa família só. Algarismos tabulares.
-  Estrutura: mapa primeiro; páginas brancas com seções separadas por fios. Raio por hierarquia: placa e etiqueta 6,
-  botão e campo 10, folha e painel 16. Sombra só no que flutua sobre o mapa.
-  O momento ousado é um só: a placa verde no topo de cada rota. Nada decorativo que não seja dado real.
+  Rota São Paulo: plano de design (versão 5, 24/10/2026)
+  Marca: a faixa dupla amarela de curva sobre o asfalto ("curva à frente, não ultrapasse"): o que o motociclista
+  procura e a regra que o Estado protege. Emblema de selo (anel verde-serra, miolo de asfalto) para patch, carimbo
+  e placa de monumento; ícone só com o miolo.
+  Cor: verde-serra dominante (Pantone 3435 C), grafite de asfalto (Black 6 C), âmbar de faixa como acento (131 C),
+  vermelho 186 C só para emergência. Nada de arco-íris: pontos do mapa em grafite, monumentos em âmbar.
+  Tipo: Barlow Condensed em títulos, números e placas; Barlow no texto. Uma família, duas larguras.
+  Estrutura: mapa primeiro; páginas brancas com fios. Raio 6 / 10 / 16 por hierarquia. Sombra só sobre o mapa.
 */
 :root {
-  --bg: #F2F4F5;
+  --bg: #F3F5F6;
   --surface: #FFFFFF;
-  --surface-2: #EEF2F4;
-  --surface-3: #D5DEE3;
-  --ink: #1F2A33;
-  --ink-2: #4B5A66;
-  --ink-3: #63707B;
-  --line: #DEE5E9;
-  --mata: #0B6E4F;
+  --surface-2: #EEF1F3;
+  --surface-3: #D5DCE1;
+  --ink: #101820;
+  --ink-2: #45515B;
+  --ink-3: #5F6B75;
+  --line: #DEE3E7;
+  --marca-verde: #154734;
+  --marca-asfalto: #101820;
+  --marca-ambar: #CC8A00;
+  --logo-borda: transparent;
+  --mata: #154734;
   --mata-ink: #FFFFFF;
-  --mata-soft: #DDF1E8;
-  --ipe: #FFC233;
-  --ipe-soft: #FFF2CC;
-  --ipe-ink: #2A2100;
-  --sol: #F2643A;
-  --sol-soft: #FFE6DC;
-  --marrom: #7A4A2A;
-  --azul: #1E5AA8;
-  --asfalto: #39444D;
-  --alerta: #D93025;
+  --mata-soft: #DCEBE3;
+  --ipe: #CC8A00;
+  --ipe-soft: #F6EAD0;
+  --ipe-ink: #101820;
+  --sol: #CC8A00;
+  --sol-soft: #F6EAD0;
+  --alerta: #C8102E;
   --alerta-ink: #FFFFFF;
-  --alerta-soft: #FDE8E6;
-  --ok: #1E8A55;
-  --placa: #0A6A44;
-  --cp-cover: #0D4F3A;
-  --cp-gold: #E9C46A;
-  --curv-hi: #EE5A2F;
-  --curv-mid: #EE9F00;
-  --curv-lo: #22A06B;
-  --route-shadow: rgba(31, 42, 51, .22);
-  --sea: #CBE6F0;
-  --land: #FAFCF7;
-  --land-2: #E6EDE4;
-  --mun: #E3EBE0;
-  --road: #D5DDD4;
-  --road-major: #BFCAC0;
-  --urban: #F3E7DA;
-  --water: #93CDE0;
-  --sp-edge: #7FAF95;
-  --label: #5F716A;
+  --alerta-soft: #FBE7EA;
+  --ok: #1E7A4E;
+  --placa: #154734;
+  --cp-cover: #154734;
+  --cp-gold: #E7B75F;
+  --painel: #101820;
+  --painel-ink: #F4F6F7;
+  --painel-ink-2: #AEBBC4;
+  --painel-line: rgba(255, 255, 255, .14);
+  --drum: #070B0F;
+  --drum-ink: #F4F6F7;
+  --drum-dec: #CC8A00;
+  --drum-dec-ink: #101820;
+  --drum-shade: rgba(0, 0, 0, .45);
+  --curv-hi: #9E2B0E;
+  --curv-mid: #B57A00;
+  --curv-lo: #2364AA;
+  --route-shadow: rgba(16, 24, 32, .22);
+  --sea: #D2DFE5;
+  --land: #FAFBF9;
+  --land-2: #E8ECE7;
+  --mun: #E4E9E3;
+  --road: #D6DCD5;
+  --road-major: #C0C9C1;
+  --urban: #EEE8E0;
+  --water: #A9C6D3;
+  --sp-edge: #8FA79A;
+  --label: #56665E;
   --casing: #FFFFFF;
-  --bezel: #121A1F;
-  --c-monumento: #E2552B;
+  --bezel: #101820;
+  --c-pin: #2E3A44;
+  --c-monumento: #CC8A00;
   --c-comunidade: #5B6E7C;
-  --float: 0 1px 2px rgba(23, 42, 51, .16), 0 4px 14px rgba(23, 42, 51, .10);
-  /* categorias seguem as placas: atrativo turístico em marrom, serviço em azul */
-  --c-mirante: var(--marrom);
-  --c-natureza: var(--marrom);
-  --c-museu: var(--marrom);
-  --c-historia: var(--marrom);
-  --c-evento: var(--marrom);
-  --c-gastronomia: var(--azul);
-  --c-apoio: var(--azul);
-  --font: "Overpass", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --float: 0 1px 2px rgba(16, 24, 32, .16), 0 4px 14px rgba(16, 24, 32, .10);
+  /* os pontos do mapa são todos grafite: o pictograma diz a categoria; só o monumento tem cor */
+  --c-mirante: var(--c-pin);
+  --c-natureza: var(--c-pin);
+  --c-museu: var(--c-pin);
+  --c-historia: var(--c-pin);
+  --c-evento: var(--c-pin);
+  --c-gastronomia: var(--c-pin);
+  --c-apoio: var(--c-pin);
+  --font: "Barlow", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --r-1: 6px;
   --r-2: 10px;
   --r-3: 16px;
@@ -741,33 +754,37 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0E171C; --surface: #15222A; --surface-2: #1B2B34; --surface-3: #2B3F4A;
-    --ink: #E8F0F2; --ink-2: #A8B9C2; --ink-3: #8597A1; --line: #24343D;
-    --mata: #3CCB94; --mata-ink: #062218; --mata-soft: #133A2D;
-    --ipe: #FFC94D; --ipe-soft: #3A3014; --ipe-ink: #2A2100;
-    --sol: #FF7A50; --sol-soft: #3D2219;
-    --marrom: #9A6640; --azul: #3F78C4; --asfalto: #0B1217;
-    --alerta: #FF6B5E; --alerta-ink: #1F0A08; --alerta-soft: #3E1715; --ok: #58D394; --placa: #0B5E3D;
-    --cp-cover: #0D4F3A; --cp-gold: #E9C46A;
-    --curv-hi: #FF7A50; --curv-mid: #FFC233; --curv-lo: #43C988; --route-shadow: rgba(0, 0, 0, .55);
-    --sea: #0C1D26; --land: #182824; --land-2: #111D1B; --mun: #1F3029; --road: #2B3B35; --road-major: #3A4B44; --urban: #23302B; --water: #1D5566; --sp-edge: #4D7A66; --label: #8DA39A; --casing: #0E1A1F; --bezel: #05090B;
-    --c-monumento: #FF7A50; --c-comunidade: #5B6E7C;
+    --bg: #0B1116; --surface: #121A21; --surface-2: #19232B; --surface-3: #2A3640;
+    --ink: #E8EDF0; --ink-2: #A9B6BF; --ink-3: #8794A0; --line: #222D36;
+    --marca-verde: #154734; --marca-asfalto: #101820; --marca-ambar: #CC8A00; --logo-borda: rgba(255, 255, 255, .16);
+    --mata: #4FAE85; --mata-ink: #062218; --mata-soft: #143326;
+    --ipe: #E0A526; --ipe-soft: #352A10; --ipe-ink: #101820;
+    --sol: #E0A526; --sol-soft: #352A10;
+    --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734;
+    --cp-cover: #154734; --cp-gold: #E7B75F;
+    --painel: #070B0F; --painel-ink: #E8EDF0; --painel-ink-2: #9AA8B2; --painel-line: rgba(255, 255, 255, .10);
+    --drum: #000000; --drum-ink: #E8EDF0; --drum-dec: #E0A526; --drum-dec-ink: #101820; --drum-shade: rgba(0, 0, 0, .6);
+    --curv-hi: #E85325; --curv-mid: #FFD147; --curv-lo: #58A6FF; --route-shadow: rgba(0, 0, 0, .55);
+    --sea: #0B171E; --land: #161F1C; --land-2: #0F1615; --mun: #1D2824; --road: #29342F; --road-major: #36433D; --urban: #202A26; --water: #1C4655; --sp-edge: #456A5A; --label: #8A9C94; --casing: #0B1116; --bezel: #05080B;
+    --c-pin: #55636F; --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
     --float: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 16px rgba(0, 0, 0, .4);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0E171C; --surface: #15222A; --surface-2: #1B2B34; --surface-3: #2B3F4A;
-  --ink: #E8F0F2; --ink-2: #A8B9C2; --ink-3: #8597A1; --line: #24343D;
-  --mata: #3CCB94; --mata-ink: #062218; --mata-soft: #133A2D;
-  --ipe: #FFC94D; --ipe-soft: #3A3014; --ipe-ink: #2A2100;
-  --sol: #FF7A50; --sol-soft: #3D2219;
-  --marrom: #9A6640; --azul: #3F78C4; --asfalto: #0B1217;
-  --alerta: #FF6B5E; --alerta-ink: #1F0A08; --alerta-soft: #3E1715; --ok: #58D394; --placa: #0B5E3D;
-  --cp-cover: #0D4F3A; --cp-gold: #E9C46A;
-  --curv-hi: #FF7A50; --curv-mid: #FFC233; --curv-lo: #43C988; --route-shadow: rgba(0, 0, 0, .55);
-  --sea: #0C1D26; --land: #182824; --land-2: #111D1B; --mun: #1F3029; --road: #2B3B35; --road-major: #3A4B44; --urban: #23302B; --water: #1D5566; --sp-edge: #4D7A66; --label: #8DA39A; --casing: #0E1A1F; --bezel: #05090B;
-  --c-monumento: #FF7A50; --c-comunidade: #5B6E7C;
+  --bg: #0B1116; --surface: #121A21; --surface-2: #19232B; --surface-3: #2A3640;
+  --ink: #E8EDF0; --ink-2: #A9B6BF; --ink-3: #8794A0; --line: #222D36;
+  --marca-verde: #154734; --marca-asfalto: #101820; --marca-ambar: #CC8A00; --logo-borda: rgba(255, 255, 255, .16);
+  --mata: #4FAE85; --mata-ink: #062218; --mata-soft: #143326;
+  --ipe: #E0A526; --ipe-soft: #352A10; --ipe-ink: #101820;
+  --sol: #E0A526; --sol-soft: #352A10;
+  --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734;
+  --cp-cover: #154734; --cp-gold: #E7B75F;
+  --painel: #070B0F; --painel-ink: #E8EDF0; --painel-ink-2: #9AA8B2; --painel-line: rgba(255, 255, 255, .10);
+  --drum: #000000; --drum-ink: #E8EDF0; --drum-dec: #E0A526; --drum-dec-ink: #101820; --drum-shade: rgba(0, 0, 0, .6);
+  --curv-hi: #E85325; --curv-mid: #FFD147; --curv-lo: #58A6FF; --route-shadow: rgba(0, 0, 0, .55);
+  --sea: #0B171E; --land: #161F1C; --land-2: #0F1615; --mun: #1D2824; --road: #29342F; --road-major: #36433D; --urban: #202A26; --water: #1C4655; --sp-edge: #456A5A; --label: #8A9C94; --casing: #0B1116; --bezel: #05080B;
+  --c-pin: #55636F; --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
   --float: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 16px rgba(0, 0, 0, .4);
   color-scheme: dark;
 }
@@ -956,8 +973,6 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .nav button[aria-current="page"] .ico { color: var(--mata); }
 /* a aba ativa ganha a faixa amarela da estrada */
 .nav button[aria-current="page"]::before { content: ""; position: absolute; top: 0; left: 50%; width: 36px; margin-left: -18px; height: 3px; border-radius: 0 0 3px 3px; background: var(--ipe); }
-.nav .ico.plus { background: var(--ipe); color: var(--ipe-ink); width: 34px; height: 30px; }
-.nav .ico.plus svg.ic { width: 21px; height: 21px; stroke-width: 2.5; }
 .nav .count { position: absolute; top: 6px; right: calc(50% - 26px); min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--sol); color: #fff; font-size: 11px; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
 
 /* ---------- pages ---------- */
@@ -1021,6 +1036,23 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .exp-routes { display: flex; flex-wrap: wrap; gap: 6px; }
 .mini-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1.5px solid var(--surface-3); background: var(--surface); font-size: 13.5px; font-weight: 600; }
 .mini-chip i { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+
+/* início: painel do motociclista; o odômetro imita os tambores do painel da moto */
+.home-brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; border: 0; background: none; padding: 0; font-weight: 800; font-size: 17px; color: var(--ink); }
+.home-brand svg { width: 36px; height: 36px; }
+.page-top .sos-btn { height: 44px; box-shadow: none; }
+.painel { background: var(--painel); color: var(--painel-ink); border-radius: var(--r-3); padding: 16px; display: grid; gap: 10px; }
+.painel h2 { font-size: 14px; font-weight: 700; color: var(--painel-ink-2); }
+.odo { display: flex; align-items: stretch; gap: 3px; }
+.odo span { flex: 1 1 0; min-width: 0; max-width: 46px; height: 54px; display: grid; place-items: center; border-radius: 5px; background: linear-gradient(var(--drum-shade), transparent 32%, transparent 68%, var(--drum-shade)), var(--drum); color: var(--drum-ink); font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.odo .dec { margin-left: 3px; background: linear-gradient(var(--drum-shade), transparent 32%, transparent 68%, var(--drum-shade)), var(--drum-dec); color: var(--drum-dec-ink); }
+.odo b { align-self: flex-end; margin-left: 6px; font-size: 15px; font-weight: 700; color: var(--painel-ink-2); }
+.painel-sub { font-size: 14px; color: var(--painel-ink-2); }
+.trips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin: 2px 0 0; padding-top: 12px; border-top: 1px solid var(--painel-line); }
+.trips div { min-width: 0; }
+.trips dt { font-size: 13px; font-weight: 600; color: var(--painel-ink-2); }
+.trips dd { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.1; }
+.trips dd small { font-size: 14px; font-weight: 600; color: var(--painel-ink-2); }
 
 /* checkpoint: cartão do motociclista, com a moldura dourada gravada */
 .cp-card { border-radius: var(--r-3); padding: 18px 20px 20px; color: var(--cp-gold); background: var(--cp-cover); box-shadow: inset 0 0 0 7px var(--cp-cover), inset 0 0 0 8.5px color-mix(in srgb, var(--cp-gold) 60%, transparent); }
@@ -1270,6 +1302,49 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .page .p-mapgrid, .page .gain, .page .road { grid-template-columns: 1fr; }
 .page .p-foot ul { columns: 1; }
 
+/* títulos, números e placas em Barlow Condensed (letra estreita de painel e de rodovia); a largura menor pede corpo maior */
+.hello h2, .sec-h, .d-title, .pr-name, .pr-rows dd, .page-top h1, .h-sub, .t-txt strong, .rc-name, .exp-body h3, .cp-card h1, .cp-count b,
+.stamp .seal, .sos-panel h2, .call b, .modal-head h2, .odo span, .trips dd, .p-title h1, .p-sec h2, .placa-row b, .fus strong, .road h3,
+.list-row .txt strong, .home-brand, .placa-in .ph, .shield, .map-label, .hm-reg, .hm-city, .pin .n { font-family: var(--font-display); letter-spacing: .005em; }
+.hello h2 { font-size: 27px; font-weight: 700; }
+.sec-h { font-size: 21px; font-weight: 700; }
+.d-title { font-size: 33px; font-weight: 700; }
+.pr-name { font-size: 30px; font-weight: 700; }
+.pr-rows dt { font-size: 15px; }
+.pr-rows dd { font-size: 23px; font-weight: 700; }
+.page-top h1 { font-size: 36px; font-weight: 700; }
+.h-sub { font-size: 22px; font-weight: 700; }
+.t-txt strong { font-size: 17px; font-weight: 600; }
+.rc-name { font-size: 22px; font-weight: 700; }
+.exp-body h3 { font-size: 25px; font-weight: 700; }
+.cp-card h1 { font-size: 48px; font-weight: 700; }
+.cp-count b { font-size: 48px; font-weight: 700; }
+.stamp .seal { font-size: 28px; font-weight: 700; }
+.sos-panel h2 { font-size: 24px; font-weight: 700; }
+.call b { font-size: 40px; font-weight: 700; }
+.modal-head h2 { font-size: 28px; font-weight: 700; }
+.odo span { font-size: 36px; font-weight: 600; }
+.trips dd { font-size: 30px; font-weight: 700; }
+.p-title h1 { font-size: clamp(56px, 6vw, 84px); font-weight: 700; letter-spacing: 0; }
+.p-sec h2 { font-size: 34px; font-weight: 700; }
+.placa-row b { font-size: 36px; font-weight: 700; }
+.fus strong { font-size: 22px; font-weight: 700; }
+.road h3 { font-size: 24px; font-weight: 700; }
+.list-row .txt strong { font-size: 18px; font-weight: 600; }
+.home-brand { font-size: 22px; font-weight: 700; }
+.placa-in .ph { font-size: 19px; font-weight: 700; }
+.map-label { font-weight: 600; font-size: 14.5px; }
+/* monumento: âmbar com pictograma em grafite (branco sobre âmbar não passa no contraste) */
+.pict[style*="c-monumento"], .pin[style*="c-monumento"], .chip[style*="c-monumento"]:not([aria-pressed="false"]) .pict { color: var(--marca-asfalto); }
+.nav .count { color: var(--ipe-ink); }
+/* a marca: ícone com cantos próprios; o emblema na capa do Checkpoint e no título da apresentação */
+.brand-btn { background: transparent; box-shadow: none; }
+.brand-btn svg { width: 48px; height: 48px; filter: drop-shadow(0 1px 2px rgba(16, 24, 32, .25)); }
+.home-brand svg { width: 40px; height: 40px; }
+.cp-emblem { width: 96px; height: 96px; }
+.p-title svg { width: 104px; height: 104px; }
+.page .p-title svg { width: 64px; height: 64px; }
+
 /* passar o mouse só onde existe mouse */
 @media (hover: hover) {
   .btn:not([disabled]):hover { border-color: var(--ink-3); }
@@ -1295,7 +1370,8 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <clipPath id="logo-clip" clipPathUnits="userSpaceOnUse"><rect x="2" y="2" width="44" height="44" rx="13"/></clipPath>
+    <clipPath id="logo-clip" clipPathUnits="userSpaceOnUse"><rect width="240" height="240" rx="52"/></clipPath>
+    <clipPath id="emblema-miolo" clipPathUnits="userSpaceOnUse"><circle cx="120" cy="120" r="78"/></clipPath>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
@@ -1385,9 +1461,9 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
       <div id="overlay"></div>
 
       <nav class="nav" aria-label="Navegação principal">
-        <button data-tab="mapa" aria-current="page"><span class="ico"><svg class="ic"><use href="#i-map"/></svg></span>Mapa</button>
+        <button data-tab="inicio" aria-current="page"><span class="ico"><svg class="ic"><use href="#i-gauge"/></svg></span>Início</button>
+        <button data-tab="mapa"><span class="ico"><svg class="ic"><use href="#i-map"/></svg></span>Mapa</button>
         <button data-tab="rotas"><span class="ico"><svg class="ic"><use href="#i-route"/></svg></span>Rotas</button>
-        <button data-tab="novo" aria-label="Sugerir um ponto"><span class="ico plus"><svg class="ic"><use href="#i-plus"/></svg></span>Sugerir</button>
         <button data-tab="checkpoint"><span class="ico"><svg class="ic"><use href="#i-checkpoint"/></svg></span>Checkpoint<span class="count" id="stampCount" hidden>0</span></button>
         <button data-tab="comunidade"><span class="ico"><svg class="ic"><use href="#i-users"/></svg></span>Comunidade</button>
       </nav>
@@ -1549,9 +1625,20 @@ const routeColor = r => cssVar(r.curv === 'sinuosa' ? '--curv-hi' : r.curv === '
 const catColor = cat => `var(--c-${cat})`;
 
 /* ------------------------------------------------------------------ brand mark */
-// the mark: a road winding toward the sun (geometry generated by mark.py)
-const MARK = {"edge": "M24.32 56.70 L23.98 56.04 L23.71 55.71 L23.47 55.40 L23.26 55.10 L23.07 54.81 L22.91 54.51 L22.77 54.20 L22.66 53.88 L22.58 53.53 L22.53 53.16 L22.51 52.76 L22.53 52.34 L22.59 51.89 L22.69 51.41 L22.82 50.92 L23.00 50.41 L23.22 49.88 L23.47 49.33 L23.76 48.78 L24.08 48.21 L24.43 47.64 L24.80 47.06 L25.20 46.48 L25.61 45.89 L26.04 45.29 L26.49 44.70 L26.95 44.10 L27.41 43.49 L27.87 42.88 L28.34 42.27 L28.80 41.64 L29.26 41.01 L29.71 40.37 L30.15 39.71 L30.57 39.04 L30.97 38.34 L31.34 37.62 L31.68 36.87 L31.98 36.09 L32.23 35.28 L32.42 34.44 L32.53 33.58 L32.56 32.70 L32.50 31.81 L32.35 30.93 L32.10 30.08 L31.77 29.25 L31.39 28.53 L31.13 28.08 L30.87 27.69 L30.61 27.31 L30.36 26.94 L30.10 26.59 L29.84 26.26 L29.58 25.94 L29.32 25.63 L29.07 25.33 L28.82 25.05 L28.57 24.77 L28.33 24.51 L28.10 24.26 L27.87 24.01 L27.65 23.78 L27.44 23.55 L27.24 23.33 L27.04 23.13 L26.86 22.92 L26.68 22.73 L26.52 22.55 L26.37 22.37 L26.24 22.20 L26.11 22.04 L26.00 21.89 L25.90 21.75 L25.82 21.61 L25.75 21.49 L25.69 21.37 L25.63 21.27 L25.59 21.16 L25.56 21.07 L25.54 20.97 L25.52 20.87 L25.51 20.77 L25.52 20.66 L25.54 20.54 L25.57 20.40 L25.62 20.25 L25.70 20.09 L25.80 19.91 L25.92 19.72 L26.08 19.52 L26.26 19.30 L26.47 19.08 L26.72 18.85 L26.99 18.61 L27.32 18.36 L26.28 16.84 L25.91 17.06 L25.55 17.29 L25.20 17.51 L24.88 17.74 L24.58 17.97 L24.30 18.20 L24.04 18.44 L23.81 18.69 L23.59 18.96 L23.39 19.23 L23.22 19.51 L23.07 19.81 L22.95 20.11 L22.86 20.43 L22.79 20.75 L22.75 21.07 L22.73 21.39 L22.74 21.70 L22.77 22.02 L22.82 22.32 L22.88 22.63 L22.95 22.92 L23.04 23.22 L23.14 23.51 L23.24 23.79 L23.35 24.08 L23.47 24.36 L23.59 24.65 L23.72 24.93 L23.85 25.21 L23.98 25.50 L24.12 25.78 L24.25 26.07 L24.38 26.36 L24.52 26.65 L24.65 26.95 L24.78 27.25 L24.90 27.55 L25.02 27.85 L25.14 28.15 L25.25 28.46 L25.35 28.78 L25.45 29.09 L25.54 29.41 L25.63 29.73 L25.70 30.05 L25.77 30.38 L25.81 30.67 L25.85 31.11 L25.82 31.41 L25.75 31.65 L25.66 31.85 L25.55 32.01 L25.42 32.15 L25.28 32.29 L25.12 32.43 L24.93 32.59 L24.71 32.76 L24.46 32.95 L24.16 33.17 L23.82 33.39 L23.44 33.63 L23.02 33.89 L22.56 34.16 L22.06 34.44 L21.53 34.73 L20.96 35.03 L20.37 35.35 L19.74 35.68 L19.09 36.02 L18.41 36.38 L17.71 36.76 L16.99 37.17 L16.26 37.59 L15.50 38.04 L14.73 38.52 L13.96 39.04 L13.17 39.59 L12.37 40.18 L11.57 40.82 L10.78 41.51 L9.98 42.26 L9.20 43.06 L8.43 43.93 L7.68 44.87 L6.96 45.88 L6.28 46.96 L5.64 48.11 L5.05 49.34 L4.52 50.63 L4.06 51.99 L3.67 53.42 L3.36 54.89 L3.13 56.42 L2.98 57.99 L2.88 59.30Z", "road": "M23.43 56.80 L23.09 56.12 L22.83 55.74 L22.61 55.38 L22.41 55.03 L22.24 54.69 L22.10 54.34 L21.98 53.99 L21.90 53.62 L21.84 53.23 L21.81 52.82 L21.82 52.39 L21.87 51.94 L21.96 51.47 L22.08 50.98 L22.24 50.47 L22.45 49.94 L22.69 49.40 L22.96 48.85 L23.27 48.29 L23.60 47.72 L23.97 47.14 L24.35 46.57 L24.76 45.98 L25.19 45.40 L25.63 44.81 L26.08 44.22 L26.54 43.63 L27.01 43.03 L27.48 42.43 L27.94 41.83 L28.41 41.22 L28.86 40.60 L29.31 39.98 L29.74 39.34 L30.15 38.68 L30.54 38.01 L30.90 37.32 L31.23 36.61 L31.52 35.86 L31.76 35.09 L31.93 34.30 L32.04 33.48 L32.07 32.65 L32.02 31.81 L31.87 30.98 L31.64 30.17 L31.33 29.39 L30.97 28.69 L30.71 28.26 L30.47 27.87 L30.22 27.50 L29.97 27.14 L29.72 26.80 L29.47 26.47 L29.22 26.15 L28.97 25.84 L28.72 25.55 L28.48 25.26 L28.24 24.99 L28.00 24.73 L27.77 24.47 L27.55 24.23 L27.33 23.99 L27.12 23.76 L26.92 23.54 L26.73 23.33 L26.55 23.12 L26.37 22.92 L26.21 22.73 L26.06 22.55 L25.92 22.37 L25.80 22.20 L25.68 22.03 L25.58 21.88 L25.49 21.73 L25.42 21.58 L25.36 21.45 L25.30 21.32 L25.26 21.19 L25.23 21.07 L25.21 20.95 L25.20 20.82 L25.20 20.69 L25.22 20.56 L25.25 20.41 L25.30 20.25 L25.36 20.09 L25.45 19.91 L25.57 19.72 L25.71 19.52 L25.87 19.31 L26.07 19.09 L26.29 18.86 L26.55 18.62 L26.83 18.38 L27.16 18.14 L26.44 17.06 L26.07 17.29 L25.71 17.51 L25.38 17.73 L25.07 17.95 L24.79 18.18 L24.52 18.40 L24.28 18.64 L24.05 18.88 L23.85 19.12 L23.67 19.38 L23.51 19.64 L23.38 19.91 L23.26 20.19 L23.18 20.48 L23.12 20.77 L23.08 21.07 L23.06 21.36 L23.07 21.65 L23.10 21.94 L23.14 22.23 L23.20 22.52 L23.27 22.80 L23.36 23.08 L23.45 23.35 L23.56 23.63 L23.67 23.90 L23.78 24.18 L23.91 24.45 L24.03 24.73 L24.16 25.01 L24.30 25.29 L24.43 25.57 L24.57 25.85 L24.71 26.14 L24.84 26.43 L24.98 26.73 L25.11 27.03 L25.24 27.33 L25.37 27.63 L25.49 27.94 L25.61 28.25 L25.72 28.57 L25.83 28.89 L25.93 29.21 L26.02 29.54 L26.11 29.87 L26.18 30.20 L26.23 30.51 L26.29 30.97 L26.28 31.31 L26.22 31.60 L26.14 31.84 L26.04 32.06 L25.91 32.25 L25.77 32.43 L25.60 32.62 L25.40 32.82 L25.17 33.03 L24.90 33.25 L24.59 33.49 L24.24 33.74 L23.85 34.01 L23.43 34.28 L22.96 34.57 L22.46 34.86 L21.93 35.17 L21.36 35.48 L20.77 35.81 L20.14 36.15 L19.50 36.50 L18.83 36.87 L18.14 37.25 L17.43 37.66 L16.70 38.08 L15.96 38.54 L15.21 39.02 L14.45 39.53 L13.68 40.07 L12.91 40.66 L12.13 41.29 L11.36 41.97 L10.59 42.70 L9.83 43.48 L9.09 44.33 L8.37 45.23 L7.67 46.21 L7.02 47.26 L6.40 48.37 L5.84 49.55 L5.33 50.80 L4.89 52.12 L4.52 53.49 L4.22 54.92 L4.00 56.39 L3.87 57.91 L3.77 59.20Z", "dash": "M14.24 56.06 L14.23 55.17 L14.28 54.33 L14.37 53.52 L14.51 52.74 L14.70 51.99 L14.92 51.26 L15.18 50.55 L15.49 49.84 L14.00 49.19 L13.67 49.94 L13.38 50.73 L13.12 51.55 L12.92 52.40 L12.76 53.28 L12.65 54.19 L12.60 55.13 L12.60 56.07ZM20.31 43.22 L20.87 42.70 L21.43 42.20 L22.00 41.71 L22.56 41.23 L23.12 40.75 L22.46 39.97 L21.90 40.45 L21.33 40.94 L20.76 41.44 L20.19 41.94 L19.62 42.46ZM27.05 36.90 L27.46 36.43 L27.84 35.96 L28.18 35.48 L28.49 34.99 L28.76 34.50 L28.16 34.18 L27.90 34.64 L27.62 35.10 L27.29 35.55 L26.93 36.00 L26.54 36.45ZM29.19 30.68 L29.04 30.11 L28.82 29.51 L28.67 29.14 L28.23 29.32 L28.38 29.69 L28.58 30.25 L28.73 30.80ZM27.38 26.80 L27.19 26.50 L27.01 26.20 L26.82 25.91 L26.64 25.63 L26.35 25.82 L26.53 26.10 L26.71 26.39 L26.90 26.68 L27.08 26.98ZM25.58 24.08 L25.42 23.84 L25.28 23.60 L25.14 23.37 L25.00 23.14 L24.73 23.31 L24.86 23.54 L25.00 23.77 L25.15 24.01 L25.31 24.26ZM24.44 21.87 L24.38 21.66 L24.35 21.46 L24.32 21.26 L24.00 21.29 L24.03 21.51 L24.07 21.73 L24.13 21.95ZM24.52 20.10 L24.62 19.89 L24.74 19.69 L24.47 19.52 L24.34 19.74 L24.24 19.95ZM25.44 18.86 L25.68 18.64 L25.46 18.40 L25.22 18.62Z"};
-const LOGO = `<svg viewBox="0 0 48 48" aria-hidden="true"><g clip-path="url(#logo-clip)"><rect x="2" y="2" width="44" height="44" fill="var(--mata)"/><circle cx="33.5" cy="13.5" r="6.2" fill="var(--ipe)"/><path d="${MARK.edge}" fill="#fff"/><path d="${MARK.road}" fill="var(--asfalto)"/><path d="${MARK.dash}" fill="var(--ipe)"/></g></svg>`;
+// the mark: the double yellow curve line ("curve ahead, no overtaking") on asphalt; geometry from scripts/mark.py
+const MARK = {"eixo": "M40 200 C104 190 64 118 120 118 S136 52 200 40", "icone": {"faixa": 28, "vao": 9, "escala": 1.18}, "miolo": {"faixa": 22, "vao": 7}, "topo": "M64.06 49.65 58.84 46.15Q58.75 46.12 58.7 46.16L57.84 46.87Q57.76 46.93 57.83 47.01L61.64 51.61Q61.7 51.69 61.69 51.79Q61.68 51.89 61.6 51.96L60.12 53.19Q60.04 53.26 59.93 53.25Q59.83 53.24 59.76 53.16L50.7 42.23Q50.63 42.15 50.64 42.05Q50.65 41.95 50.73 41.88L53.77 39.36Q54.63 38.65 55.63 38.52Q56.62 38.39 57.61 38.84Q58.6 39.29 59.4 40.26Q60.23 41.26 60.45 42.31Q60.66 43.36 60.28 44.31Q60.22 44.37 60.31 44.44L65.93 47.99Q65.97 48.01 66.01 48.06Q66.13 48.21 65.95 48.35L64.4 49.64Q64.24 49.78 64.06 49.65ZM53.82 42.18 56.49 45.4Q56.56 45.48 56.64 45.41L57.62 44.59Q58.21 44.11 58.19 43.36Q58.18 42.6 57.54 41.83Q56.9 41.05 56.15 40.89Q55.4 40.73 54.82 41.22L53.84 42.03Q53.76 42.1 53.82 42.18ZM65.77 43.76 61.93 37.84Q60.94 36.33 61.27 34.81Q61.61 33.3 63.12 32.31Q64.64 31.33 66.16 31.64Q67.69 31.95 68.67 33.47L72.51 39.39Q73.5 40.9 73.16 42.43Q72.82 43.95 71.3 44.93Q69.79 45.91 68.27 45.6Q66.75 45.28 65.77 43.76ZM70.53 40.8 66.57 34.71Q66.14 34.04 65.5 33.86Q64.86 33.69 64.26 34.08Q63.66 34.47 63.57 35.11Q63.48 35.76 63.91 36.43L67.87 42.53Q68.3 43.2 68.93 43.38Q69.56 43.56 70.16 43.17Q70.76 42.78 70.86 42.13Q70.96 41.47 70.53 40.8ZM77.59 24.84 78.3 26.27Q78.34 26.37 78.31 26.46Q78.28 26.56 78.18 26.61L75.79 27.79Q75.7 27.84 75.75 27.93L81.17 38.91Q81.22 39 81.19 39.1Q81.15 39.2 81.06 39.24L79.33 40.1Q79.23 40.15 79.14 40.11Q79.04 40.08 78.99 39.99L73.56 29.01Q73.52 28.92 73.42 28.96L71.16 30.08Q71.07 30.13 70.97 30.1Q70.87 30.06 70.83 29.97L70.12 28.54Q70.07 28.44 70.1 28.34Q70.14 28.25 70.23 28.2L77.25 24.73Q77.35 24.68 77.45 24.71Q77.54 24.75 77.59 24.84ZM91.55 34.71 90.43 32.77Q90.4 32.68 90.28 32.72L87.39 33.75Q87.28 33.8 87.31 33.89L87.68 36.1Q87.74 36.33 87.5 36.41L85.7 37.06Q85.43 37.16 85.39 36.88L83.52 22.47Q83.48 22.24 83.7 22.16L85.8 21.41Q86.01 21.33 86.13 21.53L93.85 33.85L93.88 33.92Q93.95 34.1 93.73 34.18L91.89 34.84Q91.65 34.92 91.55 34.71ZM87.08 31.83 89.28 31.05Q89.4 31 89.34 30.91L85.95 25.08Q85.91 25.03 85.87 25.04Q85.83 25.05 85.84 25.12L86.95 31.77Q86.97 31.88 87.08 31.83ZM100.25 28.75 100.16 28.21Q100.14 28.11 100.2 28.02Q100.26 27.94 100.36 27.92L102.25 27.59Q102.35 27.58 102.43 27.64Q102.52 27.7 102.54 27.8L102.61 28.21Q102.75 29.02 103.24 29.45Q103.73 29.87 104.37 29.76Q105.01 29.65 105.34 29.11Q105.68 28.58 105.54 27.81Q105.45 27.27 105.16 26.92Q104.86 26.56 104.38 26.28Q103.91 26 102.88 25.5Q101.72 24.94 100.99 24.47Q100.26 24 99.69 23.25Q99.13 22.51 98.94 21.43Q98.64 19.72 99.5 18.52Q100.36 17.33 102.05 17.03Q103.77 16.74 105.01 17.62Q106.25 18.5 106.56 20.26L106.64 20.76Q106.66 20.86 106.6 20.94Q106.54 21.03 106.44 21.05L104.58 21.37Q104.47 21.39 104.39 21.33Q104.3 21.27 104.28 21.17L104.19 20.63Q104.05 19.82 103.56 19.4Q103.08 18.99 102.41 19.1Q101.79 19.21 101.48 19.72Q101.16 20.24 101.3 21.02Q101.43 21.77 101.94 22.21Q102.45 22.66 103.85 23.35Q105.28 24.06 106.02 24.54Q106.77 25.02 107.24 25.66Q107.71 26.3 107.88 27.28Q108.19 29.03 107.32 30.28Q106.45 31.53 104.73 31.83Q103.01 32.13 101.78 31.28Q100.54 30.43 100.25 28.75ZM116.72 30.16 116.19 27.98Q116.19 27.87 116.06 27.88L113 28.06Q112.88 28.07 112.88 28.17L112.61 30.4Q112.61 30.63 112.35 30.65L110.45 30.76Q110.15 30.78 110.2 30.5L112.46 16.14Q112.49 15.91 112.72 15.9L114.95 15.77Q115.18 15.75 115.23 15.98L119.17 29.97L119.18 30.05Q119.19 30.24 118.96 30.25L117.01 30.37Q116.76 30.39 116.72 30.16ZM113.24 26.13 115.57 26Q115.7 25.99 115.67 25.88L114.06 19.33Q114.04 19.27 114 19.27Q113.95 19.28 113.94 19.34L113.13 26.03Q113.12 26.14 113.24 26.13ZM113.94 13.68Q113.79 13.61 113.61 13.51Q113.44 13.42 113.31 13.37Q113.18 13.33 113.01 13.34Q112.53 13.36 112.24 13.86Q112.11 14.08 111.89 13.97L111.19 13.53Q111 13.41 111.07 13.2Q111.32 12.51 111.75 12.16Q112.19 11.81 112.73 11.77Q113.07 11.75 113.37 11.86Q113.67 11.97 114.06 12.18Q114.15 12.22 114.32 12.32Q114.49 12.43 114.66 12.48Q114.82 12.53 114.98 12.52Q115.49 12.49 115.75 12.02Q115.86 11.76 116.08 11.89L116.78 12.31Q116.89 12.37 116.9 12.52Q116.91 12.64 116.83 12.79Q116.51 13.4 116.03 13.69Q115.55 13.98 115.09 14.01Q114.82 14.03 114.56 13.95Q114.31 13.87 113.94 13.68ZM121.34 26.45 121.74 19.41Q121.84 17.6 123.01 16.58Q124.17 15.55 125.97 15.65Q127.78 15.76 128.83 16.91Q129.87 18.06 129.77 19.87L129.37 26.91Q129.26 28.71 128.09 29.74Q126.92 30.77 125.11 30.66Q123.31 30.56 122.27 29.41Q121.23 28.25 121.34 26.45ZM126.93 26.88 127.34 19.62Q127.39 18.83 126.98 18.31Q126.57 17.79 125.85 17.75Q125.14 17.71 124.68 18.18Q124.22 18.64 124.18 19.44L123.76 26.7Q123.72 27.49 124.12 28.01Q124.52 28.53 125.23 28.57Q125.95 28.61 126.41 28.14Q126.88 27.67 126.93 26.88ZM147.32 23.66Q146.88 25.5 145.64 26.39Q144.4 27.29 142.81 26.91L141.07 26.49Q140.97 26.47 140.95 26.57L139.59 32.25Q139.57 32.35 139.48 32.41Q139.39 32.46 139.29 32.44L137.41 31.99Q137.31 31.97 137.25 31.88Q137.2 31.79 137.22 31.69L140.52 17.86Q140.54 17.75 140.63 17.7Q140.72 17.64 140.82 17.67L144.66 18.58Q145.74 18.84 146.44 19.57Q147.14 20.3 147.38 21.37Q147.61 22.44 147.32 23.66ZM144.93 23.16Q145.17 22.14 144.86 21.43Q144.54 20.71 143.79 20.53L142.56 20.24Q142.46 20.22 142.43 20.32L141.44 24.51Q141.41 24.61 141.51 24.63L142.74 24.93Q143.5 25.11 144.09 24.63Q144.69 24.16 144.93 23.16ZM152.64 36.23 153.02 34.02Q153.06 33.92 152.94 33.88L150.06 32.83Q149.94 32.79 149.9 32.89L148.77 34.82Q148.68 35.03 148.44 34.95L146.64 34.29Q146.37 34.19 146.52 33.96L154.29 21.68Q154.41 21.48 154.63 21.56L156.72 22.32Q156.94 22.4 156.9 22.63L154.97 37.03L154.94 37.11Q154.87 37.29 154.66 37.21L152.82 36.54Q152.58 36.46 152.64 36.23ZM151.05 31.16 153.24 31.96Q153.36 32 153.37 31.89L154.5 25.24Q154.5 25.17 154.46 25.16Q154.42 25.15 154.38 25.2L150.98 31.02Q150.93 31.12 151.05 31.16ZM158.61 34.51 163.28 25.24Q163.32 25.15 163.42 25.11Q163.52 25.08 163.61 25.13L165.34 26Q165.43 26.05 165.47 26.14Q165.5 26.24 165.45 26.34L160.67 35.83Q160.29 36.58 160.43 37.23Q160.57 37.89 161.19 38.2Q161.81 38.52 162.42 38.24Q163.03 37.96 163.41 37.21L168.19 27.72Q168.24 27.62 168.34 27.59Q168.43 27.56 168.53 27.6L170.25 28.47Q170.35 28.52 170.38 28.62Q170.41 28.72 170.37 28.81L165.7 38.08Q164.84 39.78 163.34 40.33Q161.84 40.88 160.25 40.08Q158.63 39.27 158.19 37.74Q157.75 36.21 158.61 34.51ZM166.55 43.02 174.32 31.14Q174.38 31.05 174.48 31.03Q174.58 31.01 174.67 31.07L176.29 32.13Q176.38 32.18 176.4 32.29Q176.42 32.39 176.36 32.48L169.65 42.72Q169.6 42.81 169.69 42.86L173.48 45.35Q173.57 45.41 173.59 45.51Q173.61 45.61 173.55 45.7L172.68 47.03Q172.62 47.12 172.52 47.14Q172.42 47.16 172.33 47.11L166.62 43.37Q166.53 43.31 166.51 43.21Q166.49 43.11 166.55 43.02ZM176.52 45.44 181.02 40.01Q182.17 38.62 183.72 38.48Q185.26 38.34 186.65 39.49Q188.04 40.65 188.21 42.2Q188.37 43.75 187.21 45.14L182.71 50.57Q181.56 51.96 180.01 52.1Q178.45 52.23 177.06 51.07Q175.67 49.92 175.52 48.38Q175.37 46.83 176.52 45.44ZM180.77 49.1 185.41 43.5Q185.91 42.89 185.89 42.23Q185.86 41.57 185.31 41.11Q184.76 40.66 184.12 40.76Q183.47 40.87 182.96 41.48L178.33 47.08Q177.82 47.69 177.84 48.35Q177.85 49 178.4 49.46Q178.95 49.91 179.61 49.81Q180.26 49.71 180.77 49.1Z", "base": "M77.02 200.29 78.38 201.06Q78.46 201.1 78.48 201.18Q78.5 201.26 78.46 201.34L72.82 211.35Q72.78 211.42 72.7 211.45Q72.62 211.47 72.54 211.43L71.18 210.66Q71.11 210.62 71.08 210.54Q71.06 210.46 71.1 210.38L75.04 203.39Q75.07 203.33 75.04 203.31Q75.01 203.3 74.96 203.32L72.35 204.94Q72.21 205.02 72.15 204.98Q72.09 204.95 72.09 204.79L72.12 201.72Q72.11 201.66 72.08 201.65Q72.05 201.63 72.02 201.69L68.08 208.68Q68.04 208.75 67.96 208.78Q67.88 208.8 67.8 208.76L66.44 207.99Q66.37 207.95 66.34 207.87Q66.32 207.79 66.36 207.71L72 197.7Q72.04 197.62 72.12 197.6Q72.2 197.58 72.28 197.62L73.64 198.39Q73.79 198.47 73.8 198.63L73.81 201.97Q73.82 202.06 73.9 202.02L76.73 200.28Q76.87 200.21 77.02 200.29ZM78.12 210.71 80.34 205.45Q80.91 204.1 82.08 203.63Q83.24 203.17 84.59 203.73Q85.94 204.3 86.42 205.47Q86.91 206.63 86.34 207.98L84.12 213.24Q83.55 214.59 82.37 215.05Q81.2 215.52 79.85 214.95Q78.5 214.38 78.03 213.22Q77.55 212.05 78.12 210.71ZM82.27 212.55 84.56 207.13Q84.81 206.54 84.63 206.03Q84.46 205.53 83.93 205.3Q83.4 205.08 82.92 205.31Q82.44 205.54 82.19 206.14L79.9 211.55Q79.65 212.15 79.82 212.65Q79.98 213.16 80.51 213.38Q81.05 213.61 81.53 213.38Q82.01 213.15 82.27 212.55ZM96.73 208.3 96.36 209.54Q96.33 209.62 96.26 209.66Q96.18 209.7 96.1 209.67L94.04 209.05Q93.96 209.02 93.93 209.1L91.05 218.59Q91.03 218.67 90.95 218.71Q90.88 218.75 90.8 218.72L89.3 218.27Q89.22 218.25 89.18 218.17Q89.14 218.1 89.16 218.02L92.04 208.53Q92.07 208.45 91.99 208.43L90.03 207.83Q89.95 207.81 89.91 207.73Q89.87 207.66 89.9 207.58L90.27 206.34Q90.3 206.26 90.37 206.22Q90.45 206.18 90.53 206.21L96.6 208.05Q96.68 208.07 96.72 208.15Q96.76 208.22 96.73 208.3ZM98 217.46 99.08 211.85Q99.35 210.41 100.39 209.71Q101.44 209.01 102.87 209.29Q104.31 209.56 105.03 210.6Q105.75 211.64 105.47 213.07L104.39 218.68Q104.12 220.12 103.07 220.82Q102.02 221.52 100.58 221.24Q99.15 220.97 98.43 219.93Q97.72 218.89 98 217.46ZM102.44 218.39 103.55 212.62Q103.67 211.98 103.4 211.52Q103.12 211.06 102.55 210.96Q101.99 210.85 101.57 211.17Q101.15 211.5 101.03 212.13L99.92 217.91Q99.8 218.55 100.07 219Q100.33 219.46 100.9 219.57Q101.47 219.68 101.89 219.35Q102.32 219.03 102.44 218.39ZM115.7 211.22 115.59 212.5Q115.58 212.59 115.52 212.64Q115.46 212.7 115.37 212.69L113.22 212.51Q113.14 212.5 113.13 212.59L112.3 222.46Q112.29 222.55 112.22 222.6Q112.16 222.65 112.07 222.65L110.52 222.52Q110.43 222.51 110.38 222.44Q110.32 222.38 110.33 222.3L111.16 212.42Q111.17 212.33 111.09 212.33L109.05 212.16Q108.97 212.15 108.91 212.08Q108.86 212.02 108.87 211.94L108.98 210.65Q108.98 210.56 109.05 210.51Q109.11 210.45 109.2 210.46L115.51 210.99Q115.6 211 115.65 211.07Q115.71 211.13 115.7 211.22ZM118.99 219.7 118.8 211.3Q118.8 211.22 118.86 211.16Q118.92 211.1 119 211.09L120.57 211.06Q120.65 211.06 120.71 211.12Q120.77 211.17 120.77 211.26L120.96 219.86Q120.98 220.54 121.33 220.96Q121.68 221.37 122.24 221.36Q122.8 221.35 123.13 220.92Q123.46 220.48 123.45 219.8L123.26 211.2Q123.25 211.12 123.31 211.06Q123.37 211 123.46 211L125.02 210.96Q125.1 210.96 125.16 211.02Q125.23 211.08 125.23 211.16L125.41 219.56Q125.45 221.1 124.58 222.07Q123.72 223.03 122.28 223.06Q120.81 223.09 119.92 222.17Q119.02 221.25 118.99 219.7ZM134.71 221.73 132.65 217.08Q132.6 217.02 132.55 217.02L131.66 217.14Q131.58 217.15 131.59 217.24L132.21 222.02Q132.22 222.11 132.17 222.17Q132.12 222.24 132.03 222.25L130.48 222.45Q130.4 222.46 130.33 222.41Q130.26 222.36 130.25 222.28L128.77 210.88Q128.76 210.8 128.81 210.73Q128.87 210.66 128.95 210.65L132.12 210.24Q133.01 210.12 133.75 210.47Q134.49 210.81 134.97 211.54Q135.45 212.28 135.58 213.29Q135.72 214.33 135.41 215.14Q135.11 215.96 134.43 216.44Q134.37 216.46 134.39 216.55L136.71 221.41Q136.73 221.44 136.73 221.49Q136.75 221.64 136.57 221.66L134.95 221.87Q134.78 221.9 134.71 221.73ZM130.93 212.19 131.37 215.55Q131.38 215.63 131.46 215.62L132.49 215.49Q133.1 215.41 133.42 214.89Q133.73 214.37 133.63 213.56Q133.52 212.75 133.08 212.32Q132.64 211.89 132.03 211.97L131.01 212.1Q130.92 212.11 130.93 212.19ZM140.84 220.61 138.41 209.38Q138.39 209.3 138.43 209.23Q138.48 209.16 138.56 209.14L140.09 208.81Q140.17 208.79 140.24 208.84Q140.31 208.88 140.33 208.97L142.77 220.2Q142.79 220.28 142.74 220.35Q142.7 220.42 142.62 220.44L141.09 220.77Q141 220.79 140.93 220.74Q140.86 220.7 140.84 220.61ZM146.22 216.56 146.09 216.14Q146.07 216.06 146.11 215.98Q146.15 215.91 146.23 215.88L147.71 215.43Q147.79 215.41 147.87 215.45Q147.94 215.49 147.96 215.57L148.06 215.89Q148.26 216.53 148.69 216.82Q149.13 217.11 149.63 216.96Q150.14 216.8 150.35 216.34Q150.56 215.87 150.38 215.27Q150.25 214.85 149.98 214.6Q149.71 214.34 149.3 214.16Q148.89 213.99 148.01 213.69Q147.02 213.35 146.39 213.04Q145.75 212.74 145.22 212.2Q144.69 211.66 144.43 210.81Q144.02 209.46 144.59 208.42Q145.16 207.37 146.49 206.97Q147.84 206.56 148.93 207.14Q150.01 207.72 150.44 209.11L150.55 209.5Q150.58 209.58 150.54 209.65Q150.5 209.73 150.42 209.75L148.96 210.2Q148.87 210.22 148.8 210.18Q148.73 210.14 148.7 210.06L148.57 209.64Q148.38 209.01 147.95 208.72Q147.51 208.43 146.99 208.59Q146.5 208.74 146.3 209.19Q146.1 209.63 146.29 210.25Q146.47 210.83 146.92 211.14Q147.38 211.44 148.57 211.86Q149.79 212.29 150.44 212.6Q151.08 212.91 151.53 213.38Q151.97 213.85 152.2 214.61Q152.63 215.99 152.05 217.08Q151.48 218.17 150.13 218.58Q148.78 219 147.7 218.44Q146.63 217.88 146.22 216.56ZM157.76 202.88 159.19 202.26Q159.27 202.22 159.35 202.26Q159.43 202.29 159.46 202.36L164 212.92Q164.03 213 164 213.08Q163.97 213.16 163.89 213.19L162.46 213.81Q162.38 213.84 162.3 213.81Q162.22 213.78 162.19 213.7L159.02 206.33Q158.99 206.27 158.96 206.28Q158.93 206.29 158.92 206.35L158.62 209.41Q158.6 209.56 158.53 209.59Q158.47 209.62 158.34 209.53L155.92 207.64Q155.87 207.61 155.84 207.62Q155.81 207.64 155.83 207.7L159 215.07Q159.04 215.15 159.01 215.23Q158.98 215.31 158.9 215.34L157.46 215.96Q157.38 215.99 157.3 215.96Q157.23 215.93 157.19 215.85L152.65 205.29Q152.62 205.21 152.65 205.14Q152.68 205.06 152.76 205.03L154.2 204.41Q154.35 204.34 154.48 204.43L157.15 206.45Q157.22 206.49 157.24 206.41L157.58 203.1Q157.6 202.94 157.76 202.88ZM166.7 208.32 163.87 203.36Q163.15 202.09 163.48 200.88Q163.82 199.67 165.09 198.95Q166.36 198.22 167.58 198.54Q168.8 198.86 169.52 200.13L172.36 205.09Q173.08 206.36 172.74 207.58Q172.39 208.79 171.12 209.52Q169.86 210.24 168.64 209.92Q167.43 209.59 166.7 208.32ZM170.69 206.14 167.77 201.04Q167.45 200.48 166.94 200.31Q166.43 200.14 165.93 200.42Q165.43 200.71 165.32 201.23Q165.22 201.75 165.54 202.31L168.46 207.42Q168.78 207.98 169.28 208.15Q169.78 208.33 170.28 208.04Q170.78 207.75 170.9 207.23Q171.01 206.7 170.69 206.14Z"};
+// one axis drawn twice: a wide amber stroke and a narrow asphalt stroke on top, so the two lines stay parallel
+const faixaDupla = (larg, vao, ambar, asfalto) => `<path d="${MARK.eixo}" fill="none" stroke="${ambar}" stroke-width="${larg}"/><path d="${MARK.eixo}" fill="none" stroke="${asfalto}" stroke-width="${vao}"/>`;
+const LOGO = `<svg viewBox="0 0 240 240" aria-hidden="true"><rect width="240" height="240" rx="52" fill="var(--marca-asfalto)"/><g clip-path="url(#logo-clip)"><g transform="translate(120 120) scale(${MARK.icone.escala}) translate(-120 -120)">${faixaDupla(MARK.icone.faixa, MARK.icone.vao, 'var(--marca-ambar)', 'var(--marca-asfalto)')}</g></g><rect x="3" y="3" width="234" height="234" rx="49" fill="none" stroke="var(--logo-borda)" stroke-width="6"/></svg>`;
+// the seal for patches, stamps and monument plates; text comes outlined from mark.py
+function emblema(c = {}) {
+  const anel = c.anel || 'var(--marca-verde)', linha = c.linha || '#fff', asfalto = c.asfalto || 'var(--marca-asfalto)', ambar = c.ambar || 'var(--marca-ambar)', txt = c.texto || '#fff';
+  return `<svg viewBox="0 0 240 240" aria-hidden="true"${c.cls ? ` class="${c.cls}"` : ''}><circle cx="120" cy="120" r="116" fill="${anel}"/>
+    <circle cx="120" cy="120" r="110" fill="none" stroke="${linha}" stroke-width="2"/><circle cx="120" cy="120" r="84" fill="none" stroke="${linha}" stroke-width="2"/>
+    <circle cx="120" cy="120" r="78" fill="${asfalto}"/><g clip-path="url(#emblema-miolo)">${faixaDupla(MARK.miolo.faixa, MARK.miolo.vao, ambar, asfalto)}</g>
+    <path d="${MARK.topo}" fill="${txt}"/><path d="${MARK.base}" fill="${txt}"/>
+    <path d="M14.5 120l6.5-6.5 6.5 6.5-6.5 6.5zM212.5 120l6.5-6.5 6.5 6.5-6.5 6.5z" fill="${ambar}"/></svg>`;
+}
 $('#btnAbout').innerHTML = LOGO;
 
 /* ------------------------------------------------------------------ map */
@@ -2106,14 +2193,14 @@ function renderSimBar() {
 }
 
 /* ------------------------------------------------------------------ pages */
-const PAGES = ['rotas', 'checkpoint', 'comunidade', 'seguranca', 'sobre'];
+const PAGES = ['inicio', 'rotas', 'checkpoint', 'comunidade', 'seguranca', 'sobre'];
 function setNavActive(tab) { $$('.nav [data-tab]').forEach(b => { if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); }); }
 function closePages() { $('#pages').innerHTML = ''; }
 function openPage(name) {
   closeModal(); $('#results').hidden = true; $('#legend').hidden = true;
-  const html = { rotas: pageRotas, checkpoint: pageCheckpoint, comunidade: pageComunidade, seguranca: pageSeguranca, sobre: pageSobre }[name]();
+  const html = { inicio: pageInicio, rotas: pageRotas, checkpoint: pageCheckpoint, comunidade: pageComunidade, seguranca: pageSeguranca, sobre: pageSobre }[name]();
   $('#pages').innerHTML = `<section class="page" id="page-${name}">${html}</section>`;
-  S.tab = name; setNavActive(['rotas', 'checkpoint', 'comunidade'].includes(name) ? name : '');
+  S.tab = name; setNavActive(['inicio', 'rotas', 'checkpoint', 'comunidade'].includes(name) ? name : '');
 }
 function setTab(tab) {
   if (tab === 'mapa') { closePages(); S.tab = 'mapa'; setNavActive('mapa'); map.invalidateSize(); return; }
@@ -2124,6 +2211,47 @@ $('.nav').addEventListener('click', e => { const b = e.target.closest('[data-tab
 $('#btnSOS').addEventListener('click', () => openPage('seguranca'));
 $('#btnAbout').addEventListener('click', () => openPage('sobre'));
 $('#posPill').addEventListener('click', openPos);
+
+/* início: o painel do motociclista, com o odômetro e o que ele já rodou */
+// odômetro mecânico: seis tambores de km e o tambor dos décimos invertido, como no painel da moto
+function odometer(km) {
+  const t = Math.round(km * 10), whole = String(Math.floor(t / 10)).padStart(6, '0').slice(-6);
+  return `<div class="odo" role="img" aria-label="${fmtInt(Math.floor(t / 10))},${t % 10} quilômetros rodados">${[...whole].map(d => `<span>${d}</span>`).join('')}<span class="dec">${t % 10}</span><b>km</b></div>`;
+}
+function pageInicio() {
+  const st = S.stamps, done = ROUTES.filter(r => st['r:' + r.id]), km = done.reduce((a, r) => a + r.km, 0);
+  const visits = Object.keys(st).filter(k => k.startsWith('p:')).map(k => ({ p: getPoint(k.slice(2)), t: st[k] })).filter(x => x.p).sort((a, b) => String(b.t).localeCompare(String(a.t)));
+  const mon = ACTIVE_MON.filter(p => st['p:' + p.id]).length, reg = REGIONS.filter(([id]) => st['g:' + id]).length;
+  const next = ROUTES.filter(r => !st['r:' + r.id]).map(r => [r, routeDistance(r)]).sort((a, b) => a[1] - b[1])[0];
+  const name = S.name.trim();
+  return `<div class="page-top"><div class="row mid">
+      <button class="home-brand" data-tabgo="sobre" aria-label="Sobre o Rota São Paulo">${LOGO}<span>Rota São Paulo</span></button>
+      <button class="sos-btn" data-tabgo="seguranca" aria-label="Segurança e emergência">${ic('i-shield')}SOS</button></div>
+    <div><h1>Boa estrada${name ? `, ${esc(name)}` : ''}</h1><p>${S.pos.mode === 'viagem' ? 'Em viagem' : `Perto de ${esc(S.pos.label)}`}</p></div></div>
+  <div class="page-body">
+    <section class="painel" aria-labelledby="odoH">
+      <h2 id="odoH">Quilômetros rodados</h2>
+      ${odometer(km)}
+      <p class="painel-sub">${done.length ? `Em ${done.length} ${done.length === 1 ? 'rota concluída' : 'rotas concluídas'}` : 'O odômetro anda a cada rota concluída.'}</p>
+      <dl class="trips">
+        <div><dt>Rotas</dt><dd class="tnum">${done.length}<small> de ${ROUTES.length}</small></dd></div>
+        <div><dt>Pontos visitados</dt><dd class="tnum">${visits.length}<small> de ${POINTS.length}</small></dd></div>
+        <div><dt>Monumentos abertos</dt><dd class="tnum">${mon}<small> de ${ACTIVE_MON.length}</small></dd></div>
+        <div><dt>Regiões</dt><dd class="tnum">${reg}<small> de ${REGIONS.length}</small></dd></div>
+      </dl>
+    </section>
+    ${visits.length ? `<div><h3 class="sec-h" style="margin-top:4px">${ic('i-checkpoint')}Últimos pontos visitados</h3><div class="list">${visits.slice(0, 3).map(({ p, t }) => `
+      <button class="list-row" data-open-point="${p.id}"><span class="pict" style="--c:${catColor(p.status ? 'comunidade' : p.cat)}">${ic(CATS[p.cat].icon)}</span>
+        <span class="txt"><strong>${esc(p.name)}</strong><small>${esc(p.city)}</small></span><span class="end">${esc(fmtDate(t))}</span></button>`).join('')}</div></div>` : ''}
+    ${next ? `<div><h3 class="sec-h" style="margin-top:4px">${ic('i-route')}${done.length ? 'Próxima rota' : 'Para começar'}</h3><div class="list">${routeRow(next[0], next[1] < 1 ? 'aqui' : fmtKm(next[1]))}</div></div>`
+      : '<p class="prose">Você concluiu todas as rotas do estado.</p>'}
+    <div class="cta-row" style="margin:0">
+      <button class="btn primary" data-tabgo="mapa">${ic('i-map')}Abrir o mapa</button>
+      <button class="btn" data-tabgo="novo">${ic('i-plus')}Sugerir ponto</button>
+    </div>
+    ${done.length ? '' : `<p class="note" style="margin:0">${ic('i-info')}<span>Nesta prévia, abra uma rota e toque em “Iniciar viagem”: a moto percorre o traçado, carimba os checkpoints do caminho e o odômetro anda.</span></p>`}
+  </div>`;
+}
 
 /* rotas */
 function routeShape(r, size = 66) {
@@ -2228,13 +2356,14 @@ function pageCheckpoint() {
   const st = S.stamps, n = Object.keys(st).length;
   const mon = ACTIVE_MON.filter(p => st['p:' + p.id]).length, reg = REGIONS.filter(([id]) => st['g:' + id]).length, rts = ROUTES.filter(r => st['r:' + r.id]).length;
   const bar = (a, b) => `<div class="bar"><i style="width:${Math.round(a / b * 100)}%"></i></div>`;
-  const emblem = `<svg class="cp-emblem" viewBox="0 0 48 48" aria-hidden="true"><circle cx="33.5" cy="13.5" r="6.2" fill="currentColor"/><path d="${MARK.edge}" fill="currentColor"/><path d="${MARK.road}" fill="var(--cp-cover)"/><path d="${MARK.dash}" fill="currentColor"/></svg>`;
+  // the seal engraved in gold on the cover: ring and asphalt take the cover colour, so only the gold lines show
+  const emblem = emblema({ cls: 'cp-emblem', anel: 'var(--cp-cover)', linha: 'var(--cp-gold)', asfalto: 'var(--cp-cover)', ambar: 'var(--cp-gold)', texto: 'var(--cp-gold)' });
   return `<div class="page-body page-cp">
     <div class="cp-card"><div class="cp-top">${emblem}<div class="cp-count"><b class="tnum">${n}</b>${n === 1 ? 'carimbo' : 'carimbos'}</div></div>
       <small class="cp-kicker">Rota São Paulo</small><h1>Checkpoint</h1>
       <label class="cp-name"><small>Seu nome na estrada</small><input id="riderName" type="text" value="${esc(S.name)}" placeholder="Nome ou apelido" maxlength="40" autocomplete="nickname"></label></div>
     <div class="progress-list">
-      <div class="prog"><div class="prog-top">Monumentos Rota Biker em SP<span>${mon} de ${ACTIVE_MON.length}</span></div>${bar(mon, ACTIVE_MON.length)}</div>
+      <div class="prog"><div class="prog-top">Monumentos abertos em SP (${MONUMENTS.length - ACTIVE_MON.length} em construção)<span>${mon} de ${ACTIVE_MON.length}</span></div>${bar(mon, ACTIVE_MON.length)}</div>
       <div class="prog"><div class="prog-top">Regiões do estado<span>${reg} de ${REGIONS.length}</span></div>${bar(reg, REGIONS.length)}</div>
       <div class="prog"><div class="prog-top">Rotas concluídas<span>${rts} de ${ROUTES.length}</span></div>${bar(rts, ROUTES.length)}</div>
     </div>
@@ -2591,8 +2720,8 @@ function pitchHtml() {
   ];
   return `<div class="pitch-in">
   <header class="p-hero">
-    <div class="p-title">${LOGO}<div><h1>Rota São Paulo</h1><p class="p-tag">O estado inteiro, curva a curva.</p></div></div>
-    <p class="p-lede">Um app público de mototurismo que junta o mapa com geolocalização do RotaBiker, o cadastro de novos destinos com curadoria do Box Experience e o Guia de Mototurismo da Setur-SP. O motociclista escolhe a rota pelo tipo de estrada, pela distância e pelas curvas, faz check-in nos monumentos e viaja com protocolos de segurança.</p>
+    <div class="p-title">${emblema()}<div><h1>Rota São Paulo</h1><p class="p-tag">O estado inteiro, curva a curva.</p></div></div>
+    <p class="p-lede">Uma proposta de app de mototurismo para o estado que junta o mapa com geolocalização do RotaBiker, o cadastro de novos destinos com curadoria do Box Experience e o Guia de Mototurismo da Setur-SP. O motociclista escolhe a rota pelo tipo de estrada, pela distância e pelas curvas, faz check-in nos monumentos e viaja com protocolos de segurança.</p>
   </header>
   <div class="p-mapgrid">
     <figure class="p-map">${heroMap()}<figcaption><span><i style="background:var(--curv-hi)"></i>Muitas curvas</span><span><i style="background:var(--curv-mid)"></i>Moderadas</span><span><i style="background:var(--curv-lo)"></i>Poucas curvas</span><span><i style="background:var(--c-monumento);width:9px;height:9px;border-radius:3px"></i>Monumentos Rota Biker</span></figcaption></figure>
@@ -2657,6 +2786,7 @@ function openFromHash() {
   else if (PAGES.includes(h)) openPage(h);
   else if (h.startsWith('rota-') && R_BY[h.slice(5)]) openRoute(h.slice(5));
   else if (h === 'mapa') setTab('mapa');
+  else openPage('inicio'); // o app abre no painel do motociclista
 }
 window.addEventListener('hashchange', openFromHash);
 function boot() {
