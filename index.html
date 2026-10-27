@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Overpass+Mono:wght@500;600;700&display=swap">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); color-scheme: light; }
 body { margin: 0; }
@@ -668,24 +668,25 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 
 /*
-  Rota São Paulo: plano de design (versão 5, 24/10/2026)
-  Marca: a faixa dupla amarela de curva sobre o asfalto ("curva à frente, não ultrapasse"): o que o motociclista
-  procura e a regra que o Estado protege. Emblema de selo (anel verde-serra, miolo de asfalto) para patch, carimbo
-  e placa de monumento; ícone só com o miolo.
-  Cor: verde-serra dominante (Pantone 3435 C), grafite de asfalto (Black 6 C), âmbar de faixa como acento (131 C),
-  vermelho 186 C só para emergência. Nada de arco-íris: pontos do mapa em grafite, monumentos em âmbar.
-  Tipo: Barlow Condensed em títulos, números e placas; Barlow no texto. Uma família, duas larguras.
-  Estrutura: mapa primeiro; páginas brancas com fios. Raio 6 / 10 / 16 por hierarquia. Sombra só sobre o mapa.
+  Rota São Paulo: plano de design (versão 6, 26/10/2026)
+  Ideia: a estrada vista de cima, à noite. O mapa é asfalto nos dois temas; as rotas são tinta de faixa: amarela
+  onde há muitas curvas (a faixa dupla que proíbe ultrapassar), branca nas moderadas, azul nas de poucas curvas.
+  Os atrativos usam o marrom das placas de turismo; o alto do app é a placa verde de indicação.
+  Marca: a faixa dupla amarela de curva e o emblema de selo continuam os mesmos da versão 5.
+  Tipo: Overpass, desenhada a partir da letra das placas de rodovia, em títulos e texto; Overpass Mono nos números
+  (km, curvas, odômetro, telefones), como marco quilométrico.
+  Estrutura: nada de cartão flutuante. Controles chapados, raio 2 / 4 / 6, fio no lugar de sombra.
+  Computador: app de mapa em tela cheia (faixa verde, coluna de 400 px, mapa); sem moldura de celular.
 */
 :root {
-  --bg: #F3F5F6;
+  --bg: #EDF0F1;
   --surface: #FFFFFF;
-  --surface-2: #EEF1F3;
-  --surface-3: #D5DCE1;
-  --ink: #101820;
-  --ink-2: #45515B;
-  --ink-3: #5F6B75;
-  --line: #DEE3E7;
+  --surface-2: #EFF2F3;
+  --surface-3: #CDD4D9;
+  --ink: #0F171D;
+  --ink-2: #424E57;
+  --ink-3: #5C6872;
+  --line: #DAE0E3;
   --marca-verde: #154734;
   --marca-asfalto: #101820;
   --marca-ambar: #CC8A00;
@@ -705,6 +706,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --alerta-soft: #FBE7EA;
   --ok: #1E7A4E;
   --placa: #154734;
+  --marrom: #6E3F22;
   --cp-cover: #154734;
   --cp-gold: #E7B75F;
   --painel: #101820;
@@ -716,27 +718,35 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --drum-dec: #CC8A00;
   --drum-dec-ink: #101820;
   --drum-shade: rgba(0, 0, 0, .45);
-  --curv-hi: #9E2B0E;
-  --curv-mid: #B57A00;
-  --curv-lo: #2364AA;
-  --route-shadow: rgba(16, 24, 32, .22);
-  --sea: #D2DFE5;
-  --land: #FAFBF9;
-  --land-2: #E8ECE7;
-  --mun: #E4E9E3;
-  --road: #D6DCD5;
-  --road-major: #C0C9C1;
-  --urban: #EEE8E0;
-  --water: #A9C6D3;
-  --sp-edge: #8FA79A;
-  --label: #56665E;
-  --casing: #FFFFFF;
+  /* tinta das rotas sobre o asfalto do mapa */
+  --curv-hi: #FFC20E;
+  --curv-mid: #F1F0E8;
+  --curv-lo: #6AA6DA;
+  /* as mesmas três classes sobre papel (listas, perfil, carimbos): a faixa branca vira grafite e a amarela escurece */
+  --curv-hi-ui: #A87400;
+  --curv-mid-ui: #56626B;
+  --curv-lo-ui: #2364AA;
+  --route-shadow: rgba(0, 0, 0, .55);
+  --sea: #0C171F;
+  --land: #242D34;
+  --land-2: #192026;
+  --mun: #303A42;
+  --road: #38434B;
+  --road-major: #56616A;
+  --urban: #323C44;
+  --water: #2D5B7A;
+  --sp-edge: #A3AEB5;
+  --label: #B9C3C9;
+  --label-city: #EEF2F4;
+  --map-ink: #FFFFFF;
+  --casing: #0A1015;
+  --pin-edge: #FFFFFF;
   --bezel: #101820;
-  --c-pin: #2E3A44;
-  --c-monumento: #CC8A00;
+  /* pontos do mapa no marrom das placas de atrativo turístico; o pictograma diz a categoria; só o monumento tem cor própria */
+  --c-pin: var(--marrom);
+  --c-monumento: #E0A526;
   --c-comunidade: #5B6E7C;
-  --float: 0 1px 2px rgba(16, 24, 32, .16), 0 4px 14px rgba(16, 24, 32, .10);
-  /* os pontos do mapa são todos grafite: o pictograma diz a categoria; só o monumento tem cor */
+  --float: 0 0 0 1px rgba(15, 23, 29, .3);
   --c-mirante: var(--c-pin);
   --c-natureza: var(--c-pin);
   --c-museu: var(--c-pin);
@@ -744,15 +754,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --c-evento: var(--c-pin);
   --c-gastronomia: var(--c-pin);
   --c-apoio: var(--c-pin);
-  --font: "Barlow", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
-  --r-1: 6px;
-  --r-2: 10px;
-  --r-3: 16px;
+  --font: "Overpass", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-display: "Overpass", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-num: "Overpass Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 6px;
   --gutL: max(16px, env(safe-area-inset-left, 0px));
   --gutR: max(16px, env(safe-area-inset-right, 0px));
   --nav-h: 70px;
   --sheet-h: 232px;
+  --hdr-h: 64px;
+  --panel-w: 400px;
+  --panel-top: 137px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -762,14 +776,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
     --mata: #4FAE85; --mata-ink: #062218; --mata-soft: #143326;
     --ipe: #E0A526; --ipe-soft: #352A10; --ipe-ink: #101820;
     --sol: #E0A526; --sol-soft: #352A10;
-    --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734;
+    --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734; --marrom: #8A5531;
     --cp-cover: #154734; --cp-gold: #E7B75F;
     --painel: #070B0F; --painel-ink: #E8EDF0; --painel-ink-2: #9AA8B2; --painel-line: rgba(255, 255, 255, .10);
     --drum: #000000; --drum-ink: #E8EDF0; --drum-dec: #E0A526; --drum-dec-ink: #101820; --drum-shade: rgba(0, 0, 0, .6);
-    --curv-hi: #E85325; --curv-mid: #FFD147; --curv-lo: #58A6FF; --route-shadow: rgba(0, 0, 0, .55);
-    --sea: #0B171E; --land: #161F1C; --land-2: #0F1615; --mun: #1D2824; --road: #29342F; --road-major: #36433D; --urban: #202A26; --water: #1C4655; --sp-edge: #456A5A; --label: #8A9C94; --casing: #0B1116; --bezel: #05080B;
-    --c-pin: #55636F; --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
-    --float: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 16px rgba(0, 0, 0, .4);
+    --curv-hi: #FFC20E; --curv-mid: #EDECE4; --curv-lo: #6AA6DA; --curv-hi-ui: #FFC20E; --curv-mid-ui: #D9DCD6; --curv-lo-ui: #6AA6DA;
+    --route-shadow: rgba(0, 0, 0, .7);
+    --sea: #070F15; --land: #1A2228; --land-2: #11171C; --mun: #252F36; --road: #2C363D; --road-major: #47525A; --urban: #262F36; --water: #21485F; --sp-edge: #84909A; --label: #A3AEB5; --label-city: #E3E9EC; --map-ink: #FFFFFF; --casing: #05090C; --pin-edge: #F2F4F5; --bezel: #05080B;
+    --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
+    --float: 0 0 0 1px rgba(255, 255, 255, .16);
     color-scheme: dark;
   }
 }
@@ -780,14 +795,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --mata: #4FAE85; --mata-ink: #062218; --mata-soft: #143326;
   --ipe: #E0A526; --ipe-soft: #352A10; --ipe-ink: #101820;
   --sol: #E0A526; --sol-soft: #352A10;
-  --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734;
+  --alerta: #FF5A5F; --alerta-ink: #1F0A08; --alerta-soft: #3A1418; --ok: #58C48E; --placa: #154734; --marrom: #8A5531;
   --cp-cover: #154734; --cp-gold: #E7B75F;
   --painel: #070B0F; --painel-ink: #E8EDF0; --painel-ink-2: #9AA8B2; --painel-line: rgba(255, 255, 255, .10);
   --drum: #000000; --drum-ink: #E8EDF0; --drum-dec: #E0A526; --drum-dec-ink: #101820; --drum-shade: rgba(0, 0, 0, .6);
-  --curv-hi: #E85325; --curv-mid: #FFD147; --curv-lo: #58A6FF; --route-shadow: rgba(0, 0, 0, .55);
-  --sea: #0B171E; --land: #161F1C; --land-2: #0F1615; --mun: #1D2824; --road: #29342F; --road-major: #36433D; --urban: #202A26; --water: #1C4655; --sp-edge: #456A5A; --label: #8A9C94; --casing: #0B1116; --bezel: #05080B;
-  --c-pin: #55636F; --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
-  --float: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 16px rgba(0, 0, 0, .4);
+  --curv-hi: #FFC20E; --curv-mid: #EDECE4; --curv-lo: #6AA6DA; --curv-hi-ui: #FFC20E; --curv-mid-ui: #D9DCD6; --curv-lo-ui: #6AA6DA;
+  --route-shadow: rgba(0, 0, 0, .7);
+  --sea: #070F15; --land: #1A2228; --land-2: #11171C; --mun: #252F36; --road: #2C363D; --road-major: #47525A; --urban: #262F36; --water: #21485F; --sp-edge: #84909A; --label: #A3AEB5; --label-city: #E3E9EC; --map-ink: #FFFFFF; --casing: #05090C; --pin-edge: #F2F4F5; --bezel: #05080B;
+  --c-monumento: #E0A526; --c-comunidade: #5B6E7C;
+  --float: 0 0 0 1px rgba(255, 255, 255, .16);
   color-scheme: dark;
 }
 
@@ -810,36 +826,11 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- stage ---------- */
-.stage { display: block; }
+/* ---------- palco: o app ocupa a tela inteira; no computador ele se reorganiza em coluna e mapa (fim da folha de estilo) ---------- */
 .pitch { display: none; }
-.device { position: relative; }
-@media (max-width: 979px) {
-  html, body { height: 100%; }
-  body { background: var(--surface); }
-  .stage, .device { height: 100%; }
-  .app { height: 100%; }
-}
-@media (min-width: 980px) {
-  .stage {
-    display: grid; grid-template-columns: minmax(0, 1fr) 412px; gap: 64px;
-    max-width: 1300px; margin: 0 auto; padding-block: 40px 64px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-    align-items: start;
-  }
-  .pitch { display: block; min-width: 0; padding-left: 24px; }
-  .device {
-    position: sticky; top: 24px; width: 412px; height: min(868px, calc(100vh - 48px)); min-height: 640px;
-    border-radius: 54px; padding: 11px; background: var(--bezel);
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 40px 70px -30px rgba(12, 40, 52, .45), 0 18px 36px -18px rgba(0,0,0,.35);
-  }
-  .device::before { content: ""; position: absolute; top: 21px; left: 50%; width: 94px; height: 27px; margin-left: -47px; border-radius: 20px; background: #05090B; z-index: 2000; pointer-events: none; }
-  .app { height: 100%; border-radius: 43px; }
-  .app .topbar { padding-top: 54px; }
-  .app .page-top, .app .page-cp, .app .page-sobre { padding-top: 54px; }
-  .app .modal-panel { padding-top: 46px; }
-  .app .sim-bar { top: 168px; }
-  .app .search-results { top: 112px; }
-}
+html, body { height: 100%; }
+body { background: var(--surface); }
+.stage, .device, .app { height: 100%; }
 
 /* ---------- app shell ---------- */
 .app { position: relative; overflow: hidden; isolation: isolate; background: var(--surface); color: var(--ink); }
@@ -1079,16 +1070,7 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .home-brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; border: 0; background: none; padding: 0; font-weight: 800; font-size: 17px; color: var(--ink); }
 .home-brand svg { width: 36px; height: 36px; }
 .page-top .sos-btn { height: 44px; box-shadow: none; }
-/* Início: foto de estrada paulista atrás do cumprimento; a película escura só existe para o texto branco ler em cima da foto */
-.inicio-hero { position: relative; isolation: isolate; min-height: 268px; display: grid; align-content: space-between; color: #fff; background: var(--painel); }
-.inicio-hero img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-.inicio-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(7, 11, 15, .5) 0%, rgba(7, 11, 15, 0) 32%, rgba(7, 11, 15, .1) 52%, rgba(7, 11, 15, .82) 100%); }
-.inicio-hero .page-top { min-height: 268px; align-content: space-between; padding-bottom: 30px; }
-.inicio-hero .page-top h1, .inicio-hero .page-top p, .inicio-hero .home-brand { color: #fff; }
-.inicio-hero .page-top h1 { font-size: 34px; text-shadow: 0 1px 12px rgba(0, 0, 0, .35); }
-.inicio-hero .page-top p { color: rgba(255, 255, 255, .86); }
-.foto-credito { position: absolute; right: var(--gutR); bottom: 7px; max-width: calc(100% - 32px); font-size: 10.5px; line-height: 1.2; color: rgba(255, 255, 255, .78); text-decoration: none; text-align: right; }
-.foto-credito:hover, .foto-credito:focus-visible { color: #fff; text-decoration: underline; }
+
 .painel { background: var(--painel); color: var(--painel-ink); border-radius: var(--r-3); padding: 16px; display: grid; gap: 10px; }
 .painel h2 { font-size: 14px; font-weight: 700; color: var(--painel-ink-2); }
 .odo { display: flex; align-items: stretch; gap: 3px; }
@@ -1355,48 +1337,48 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
 .page .p-mapgrid, .page .gain, .page .road { grid-template-columns: 1fr; }
 .page .p-foot ul { columns: 1; }
 
-/* títulos, números e placas em Barlow Condensed (letra estreita de painel e de rodovia); a largura menor pede corpo maior */
-.hello h2, .sec-h, .d-title, .pr-name, .pr-rows dd, .page-top h1, .h-sub, .t-txt strong, .rc-name, .exp-body h3, .cp-card h1, .cp-count b,
-.stamp .seal, .sos-panel h2, .call b, .modal-head h2, .odo span, .trips dd, .p-title h1, .p-sec h2, .placa-row b, .fus strong, .road h3,
-.list-row .txt strong, .home-brand, .placa-in .ph, .shield, .map-label, .hm-reg, .hm-city, .pin .n { font-family: var(--font-display); letter-spacing: .005em; }
-.hello h2 { font-size: 27px; font-weight: 700; }
-.sec-h { font-size: 21px; font-weight: 700; }
-.d-title { font-size: 33px; font-weight: 700; }
-.pr-name { font-size: 30px; font-weight: 700; }
-.pr-rows dt { font-size: 15px; }
-.pr-rows dd { font-size: 23px; font-weight: 700; }
-.page-top h1 { font-size: 36px; font-weight: 700; }
-.h-sub { font-size: 22px; font-weight: 700; }
-.t-txt strong { font-size: 17px; font-weight: 600; }
-.rc-name { font-size: 22px; font-weight: 700; }
-.exp-body h3 { font-size: 25px; font-weight: 700; }
-.cp-card h1 { font-size: 48px; font-weight: 700; }
-.cp-count b { font-size: 48px; font-weight: 700; }
-.stamp .seal { font-size: 28px; font-weight: 700; }
-.sos-panel h2 { font-size: 24px; font-weight: 700; }
-.call b { font-size: 40px; font-weight: 700; }
-.modal-head h2 { font-size: 28px; font-weight: 700; }
-.odo span { font-size: 36px; font-weight: 600; }
-.trips dd { font-size: 30px; font-weight: 700; }
-.p-title h1 { font-size: clamp(56px, 6vw, 84px); font-weight: 700; letter-spacing: 0; }
-.p-sec h2 { font-size: 34px; font-weight: 700; }
-.placa-row b { font-size: 36px; font-weight: 700; }
-.fus strong { font-size: 22px; font-weight: 700; }
-.road h3 { font-size: 24px; font-weight: 700; }
-.list-row .txt strong { font-size: 18px; font-weight: 600; }
-.home-brand { font-size: 22px; font-weight: 700; }
-.placa-in .ph { font-size: 19px; font-weight: 700; }
-.map-label { font-weight: 600; font-size: 14.5px; }
+/* títulos em Overpass pesada, a letra das placas de rodovia; números em Overpass Mono, como odômetro e marco quilométrico */
+.hello h2, .sec-h, .d-title, .pr-name, .page-top h1, .h-sub, .t-txt strong, .rc-name, .exp-body h3, .cp-card h1,
+.sos-panel h2, .modal-head h2, .p-title h1, .p-sec h2, .fus strong, .road h3, .list-row .txt strong, .home-brand, .placa-in .ph, .shield,
+.hm-reg, .hm-city { font-family: var(--font-display); letter-spacing: -.01em; }
+.pr-rows dd, .cp-count b, .stamp .seal, .call b, .odo span, .trips dd, .placa-row b, .pin .n, .list-row .end, .profile-axis, .uf-tag { font-family: var(--font-num); letter-spacing: 0; }
+.hello h2 { font-size: 23px; font-weight: 800; }
+.sec-h { font-size: 17px; font-weight: 800; }
+.d-title { font-size: 28px; font-weight: 800; line-height: 1.05; }
+.pr-name { font-size: 24px; font-weight: 800; }
+.pr-rows dt { font-size: 14.5px; }
+.pr-rows dd { font-size: 19px; font-weight: 700; }
+.page-top h1 { font-size: 30px; font-weight: 900; }
+.h-sub { font-size: 18px; font-weight: 800; }
+.t-txt strong { font-size: 14.5px; font-weight: 700; }
+.rc-name { font-size: 18px; font-weight: 800; }
+.exp-body h3 { font-size: 21px; font-weight: 800; }
+.cp-card h1 { font-size: 40px; font-weight: 900; }
+.cp-count b { font-size: 40px; font-weight: 700; }
+.stamp .seal { font-size: 22px; font-weight: 700; }
+.sos-panel h2 { font-size: 20px; font-weight: 800; }
+.call b { font-size: 32px; font-weight: 700; }
+.modal-head h2 { font-size: 24px; font-weight: 800; }
+.odo span { font-size: 30px; font-weight: 600; }
+.trips dd { font-size: 26px; font-weight: 600; }
+.p-title h1 { font-size: clamp(44px, 5vw, 64px); font-weight: 900; letter-spacing: -.02em; }
+.p-sec h2 { font-size: 26px; font-weight: 800; }
+.placa-row b { font-size: 28px; font-weight: 700; }
+.fus strong { font-size: 18px; font-weight: 800; }
+.road h3 { font-size: 19px; font-weight: 800; }
+.list-row .txt strong { font-size: 15.5px; font-weight: 700; }
+.home-brand { font-size: 18px; font-weight: 800; }
+.placa-in .ph { font-size: 16px; font-weight: 800; }
 /* monumento: âmbar com pictograma em grafite (branco sobre âmbar não passa no contraste) */
 .pict[style*="c-monumento"], .pin[style*="c-monumento"], .chip[style*="c-monumento"]:not([aria-pressed="false"]) .pict { color: var(--marca-asfalto); }
 .nav .count { color: var(--ipe-ink); }
 /* a marca: ícone com cantos próprios; o emblema na capa do Checkpoint e no título da apresentação */
 .brand-btn { background: transparent; box-shadow: none; }
-.brand-btn svg { width: 48px; height: 48px; filter: drop-shadow(0 1px 2px rgba(16, 24, 32, .25)); }
-.home-brand svg { width: 40px; height: 40px; }
+.brand-btn svg { width: 44px; height: 44px; }
+.home-brand svg { width: 36px; height: 36px; }
 .cp-emblem { width: 96px; height: 96px; }
-.p-title svg { width: 104px; height: 104px; }
-.page .p-title svg { width: 64px; height: 64px; }
+.p-title svg { width: 96px; height: 96px; }
+.page .p-title svg { width: 56px; height: 56px; }
 
 /* passar o mouse só onde existe mouse */
 @media (hover: hover) {
@@ -1412,6 +1394,132 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
   .seg button:hover, .filters summary:hover, .acc summary:hover { color: var(--ink); }
   .stamp-btn:hover .seal { border-color: var(--ink-3); }
   .link-btn:hover, .src a:hover { text-decoration: underline; }
+}
+
+
+/* ---------- v6: placa verde no alto, asfalto no mapa, marrom de turismo nos pontos ---------- */
+.brand-name { display: none; }
+.nav .nav-sobre { display: none; }
+
+/* topo do celular: uma placa verde colada na borda, não cartões soltos sobre o mapa */
+.topbar { background: var(--placa); padding: 10px var(--gutR) 0 var(--gutL); gap: 8px; pointer-events: auto; box-shadow: 0 1px 0 rgba(0, 0, 0, .45); }
+.brand-btn { width: 44px; height: 44px; border-radius: 0; }
+.search { height: 44px; padding: 0 12px; border-radius: var(--r-1); box-shadow: none; }
+.search:focus-within { box-shadow: 0 0 0 3px var(--ipe); }
+.sos-btn { height: 44px; padding: 0 13px 0 10px; border-radius: var(--r-1); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .9); letter-spacing: .03em; }
+.chips { gap: 6px; padding: 2px var(--gutR) 10px var(--gutL); }
+.chip { height: 32px; padding: 0 10px 0 4px; gap: 6px; border-radius: var(--r-1); background: var(--surface); color: var(--ink); box-shadow: none; font-size: 13.5px; }
+.chip .pict { width: 24px; height: 24px; border-radius: var(--r-1); }
+.chip[aria-pressed="false"] { background: transparent; color: rgba(255, 255, 255, .84); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
+.chip[aria-pressed="false"] .pict { background: rgba(255, 255, 255, .14); color: rgba(255, 255, 255, .84); }
+.search-results { top: 60px; border-radius: var(--r-2); box-shadow: var(--float), 0 10px 28px rgba(0, 0, 0, .28); }
+
+/* sobre o mapa: botões quadrados com fio, sem sombra de cartão */
+.fab { height: 44px; border-radius: var(--r-1); }
+.fab:not(.fab-txt) { width: 44px; }
+.pos-pill { height: 36px; border-radius: var(--r-1); }
+.legend { border-radius: var(--r-2); box-shadow: var(--float), 0 10px 28px rgba(0, 0, 0, .3); }
+.tag { border-radius: var(--r-1); }
+.leaflet-tooltip.rt { border-radius: var(--r-1); }
+.sim-bar, .pick-bar { border-radius: var(--r-2); }
+.leaflet-control-scale { display: none; }
+.leaflet-control-scale-line { background: rgba(255, 255, 255, .88); border-color: var(--marca-asfalto); color: var(--marca-asfalto); font-family: var(--font-num); font-size: 11px; text-shadow: none; }
+
+/* folha: painel chapado, sem cantos de cartão */
+.sheet { border-radius: 0; box-shadow: 0 -1px 0 rgba(0, 0, 0, .5); }
+.sheet-grip span { width: 36px; border-radius: 0; }
+
+/* abas: a ativa ganha a faixa amarela no alto */
+.nav button[aria-current="page"]::before { width: 44px; margin-left: -22px; height: 4px; border-radius: 0; }
+
+/* miniaturas de rota: um pedaço do mesmo asfalto do mapa */
+.thumb, .route-card .shape { background: var(--land); border-radius: var(--r-1); }
+
+/* pontos: placa marrom de atrativo turístico, borda branca */
+.pin { width: 28px; height: 28px; border-radius: var(--r-1); border: 2px solid var(--pin-edge); box-shadow: 0 0 0 1px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .45); }
+.pin .n { background: var(--pin-edge); color: var(--marca-asfalto); border-color: var(--marca-asfalto); border-radius: var(--r-1); font-weight: 700; }
+.pin.com { background: var(--pin-edge); color: var(--marca-asfalto); border-color: var(--marca-asfalto); }
+.pin.sel { box-shadow: 0 0 0 3px var(--marca-asfalto), 0 0 0 6px var(--ipe); }
+.pin.got::after { border-radius: 0; border-color: var(--marca-asfalto); }
+.me, .me.sim, .me.moto { border-color: var(--pin-edge); }
+
+/* rótulos claros sobre o asfalto: regiões em versal espaçada e mar em itálico, como nas cartas rodoviárias */
+.map-label { color: var(--label); font-weight: 600; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; }
+.map-label.city, .map-label.state, .map-label.sea, .map-label.br-uf, .map-label.br-sp { text-transform: none; }
+.map-label.city { color: var(--label-city); font-size: 12.5px; font-weight: 700; letter-spacing: 0; }
+.map-label.city::before { background: var(--label-city); box-shadow: 0 0 0 1.5px var(--land); }
+.map-label.state { color: var(--label); font-size: 12px; letter-spacing: .02em; }
+.map-label.sea { color: color-mix(in srgb, var(--water) 40%, var(--label)); font-style: italic; font-size: 13px; letter-spacing: .05em; }
+.hm-reg { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; }
+.hm-city { fill: var(--label-city); }
+.hm-state { fill: var(--label); }
+.hm-sea { fill: color-mix(in srgb, var(--water) 40%, var(--label)); font-style: italic; }
+.p-map figcaption i { border-radius: 1px; box-shadow: 0 0 0 1.5px var(--casing); }
+
+/* início: a placa com a marca, a foto inteira com o crédito embaixo e o cumprimento no papel */
+.inicio-band { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px var(--gutR) 10px var(--gutL); background: var(--placa); }
+.inicio-band .home-brand { color: #fff; }
+.inicio-band .sos-btn { height: 40px; }
+.inicio-foto { margin: 0; }
+.inicio-foto img { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; object-position: center 45%; }
+.inicio-foto figcaption { padding: 6px var(--gutR) 0 var(--gutL); font-size: 11.5px; line-height: 1.35; color: var(--ink-3); }
+.inicio-foto figcaption a { color: inherit; text-decoration: none; }
+.inicio-foto figcaption a:hover, .inicio-foto figcaption a:focus-visible { text-decoration: underline; }
+.inicio-top .page-top { gap: 2px; padding-top: 16px; padding-bottom: 2px; }
+.inicio-top .page-top h1 { font-size: 34px; }
+.painel { border-radius: var(--r-2); }
+.odo span { border-radius: var(--r-1); }
+
+/* apresentação: sem ícones de enfeite; a origem de cada parte fica à esquerda, como numa tabela */
+.fus { grid-template-columns: 8.5rem minmax(0, 1fr); gap: 16px; }
+.fus .from { padding-top: 4px; font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+.page .fus { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.gain div { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 10px; border-top: 1px solid var(--line); }
+.howto li::before { width: 28px; height: 28px; border-radius: var(--r-1); background: none; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); font-family: var(--font-num); font-weight: 700; font-size: 15px; }
+
+@media (hover: hover) {
+  .brand-btn:hover { background: transparent; opacity: .88; }
+  .chip[aria-pressed="false"]:hover { background: rgba(255, 255, 255, .1); }
+}
+
+/* computador: app de mapa em tela cheia. Faixa verde no alto (marca, abas, SOS), coluna de 400 px, o mapa no resto */
+@media (min-width: 980px) {
+  .app { --nav-h: 0px; --sheet-h: 0px !important; }
+  #map { top: var(--hdr-h); left: var(--panel-w); }
+  .topbar { right: auto; width: var(--panel-w); padding: 0 16px 14px; gap: 0; background: linear-gradient(var(--placa) 0 var(--hdr-h), var(--surface) var(--hdr-h)); box-shadow: inset -1px 0 0 var(--line), 0 1px 0 var(--line); }
+  .bar-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .brand-btn { justify-self: start; width: auto; height: var(--hdr-h); display: inline-flex; align-items: center; gap: 12px; color: #fff; }
+  .brand-btn svg { width: 40px; height: 40px; }
+  .brand-name { display: inline; font-family: var(--font-display); font-weight: 900; font-size: 21px; letter-spacing: -.015em; }
+  .search { box-shadow: inset 0 0 0 1px var(--surface-3); }
+  .search:focus-within { box-shadow: inset 0 0 0 1px var(--surface-3), 0 0 0 3px var(--ipe); }
+  .sos-btn { position: fixed; top: 12px; right: max(16px, env(safe-area-inset-right, 0px)); z-index: 950; height: 40px; }
+  .chips { position: fixed; top: calc(var(--hdr-h) + 12px); left: calc(var(--panel-w) + 16px); right: 16px; margin: 0; padding: 0; flex-wrap: wrap; overflow: visible; }
+  .search-results { top: calc(var(--hdr-h) + 64px); left: 16px; right: auto; width: calc(var(--panel-w) - 32px); max-height: 60vh; }
+
+  .nav { top: 0; bottom: auto; left: var(--panel-w); right: 0; z-index: 400; height: var(--hdr-h); display: flex; align-items: stretch; padding: 0 128px 0 8px; background: var(--placa); border-top: 0; }
+  .nav button { display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; font-size: 15px; color: rgba(255, 255, 255, .74); }
+  .nav button:hover { color: #fff; }
+  .nav button .ico { width: auto; height: auto; }
+  .nav button[aria-current="page"], .nav button[aria-current="page"] .ico { color: #fff; }
+  .nav button[aria-current="page"]::before { top: auto; bottom: 0; left: 14px; right: 14px; width: auto; margin: 0; }
+  .nav .count { position: static; margin-left: -2px; }
+  .nav .nav-sobre { display: inline-flex; margin-left: auto; }
+
+  .sheet { top: var(--panel-top); right: auto; bottom: 0; width: var(--panel-w); height: auto; transition: none; box-shadow: inset -1px 0 0 var(--line); }
+  .sheet-grip { display: none; }
+  .sheet-body { padding-top: 18px; }
+  .page { top: var(--hdr-h); right: auto; bottom: 0; width: var(--panel-w); box-shadow: inset -1px 0 0 var(--line); }
+  #page-sobre { width: min(760px, 100%); }
+  .inicio-band { display: none; }
+
+  .pos-pill { left: calc(var(--panel-w) + 16px); bottom: 44px; }
+  .leaflet-control-scale { display: block; }
+  .pick-bar, .toast { left: calc(var(--panel-w) + 16px); right: auto; width: min(460px, calc(100% - var(--panel-w) - 32px)); }
+  .sim-bar { top: calc(var(--hdr-h) + 64px); left: calc(var(--panel-w) + 16px); right: auto; width: min(460px, calc(100% - var(--panel-w) - 32px)); }
+  .modal { align-items: center; justify-content: center; }
+  .modal-panel { width: min(560px, calc(100% - 32px)); height: min(86vh, 820px); border-radius: var(--r-3); }
+  .modal-panel.short { height: auto; max-height: min(86vh, 820px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1523,6 +1631,7 @@ svg.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor
         <button data-tab="rotas"><span class="ico"><svg class="ic"><use href="#i-route"/></svg></span>Rotas</button>
         <button data-tab="checkpoint"><span class="ico"><svg class="ic"><use href="#i-checkpoint"/></svg></span>Checkpoint<span class="count" id="stampCount" hidden>0</span></button>
         <button data-tab="comunidade"><span class="ico"><svg class="ic"><use href="#i-users"/></svg></span>Comunidade</button>
+        <button data-tab="sobre" class="nav-sobre"><span class="ico"><svg class="ic"><use href="#i-info"/></svg></span>Sobre o projeto</button>
       </nav>
       <div id="toastHost"></div>
     </div>
@@ -1548,6 +1657,8 @@ const ic = (id, cls = '') => `<svg class="ic ${cls}" aria-hidden="true"><use hre
 const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// a partir de 980 px a folha vira coluna ao lado do mapa e não cobre mais a parte de baixo dele
+const isWide = () => window.innerWidth >= 980;
 const canHover = matchMedia('(hover: hover)').matches;
 const IN_VIEWER = !!window.claude;
 
@@ -1693,6 +1804,8 @@ function regionOfCity(lat, lon) {
 }
 function routeDistance(r) { const h = here(); let best = Infinity; for (let i = 0; i < r.ll.length; i += 2) { const d = hav(h, r.ll[i]); if (d < best) best = d; } return best; }
 const routeColor = r => cssVar(r.curv === 'sinuosa' ? '--curv-hi' : r.curv === 'moderada' ? '--curv-mid' : '--curv-lo');
+// a mesma classe de curva sobre papel: a faixa branca do mapa não aparece num fundo branco
+const routeColorUi = r => cssVar(r.curv === 'sinuosa' ? '--curv-hi-ui' : r.curv === 'moderada' ? '--curv-mid-ui' : '--curv-lo-ui');
 const catColor = cat => `var(--c-${cat})`;
 
 /* ------------------------------------------------------------------ brand mark */
@@ -1710,7 +1823,7 @@ function emblema(c = {}) {
     <path d="${MARK.topo}" fill="${txt}"/><path d="${MARK.base}" fill="${txt}"/>
     <path d="M14.5 120l6.5-6.5 6.5 6.5-6.5 6.5zM212.5 120l6.5-6.5 6.5 6.5-6.5 6.5z" fill="${ambar}"/></svg>`;
 }
-$('#btnAbout').innerHTML = LOGO;
+$('#btnAbout').innerHTML = LOGO + '<span class="brand-name">Rota São Paulo</span>';
 
 /* ------------------------------------------------------------------ map */
 const map = L.map('map', {
@@ -1719,6 +1832,8 @@ const map = L.map('map', {
 });
 map.attributionControl.setPrefix(false);
 map.attributionControl.addAttribution('Rotas © OpenStreetMap (OSRM), limites IBGE, Natural Earth');
+// escala gráfica, como em toda carta rodoviária (só aparece no computador; no celular a folha ocupa esse canto)
+L.control.scale({ imperial: false, position: 'bottomleft', maxWidth: 120 }).addTo(map);
 const canvas = L.canvas({ padding: 0.4, pane: 'base' });
 const mkPane = (n, z, pe) => { map.createPane(n); const p = map.getPane(n); p.style.zIndex = z; if (pe === false) p.style.pointerEvents = 'none'; };
 mkPane('base', 200, false); mkPane('labels', 380, false); mkPane('routes', 420);
@@ -1861,7 +1976,8 @@ function zoomRules() {
   clearTimeout(declutterTimer); declutterTimer = setTimeout(declutter, 220);
 }
 let declutterTimer = 0;
-map.on('zoomend', zoomRules);
+// só depois do 'load': antes disso o canvas da base ainda não tem área e uma camada nova quebra o primeiro enquadramento
+map.whenReady(() => map.on('zoomend', zoomRules));
 // the label widths change when the web font arrives
 if (document.fonts) { document.fonts.ready.then(() => declutter()); document.fonts.addEventListener('loadingdone', () => declutter()); }
 // a place name never sits under a pin: it tries a few nearby spots and hides if none is free
@@ -1871,7 +1987,10 @@ function declutter() {
   const pad = 2, hit = (a, b) => a.left < b.right + pad && b.left < a.right + pad && a.top < b.bottom + pad && b.top < a.bottom + pad;
   const box = el => el.getBoundingClientRect(), m0 = box($('#map'));
   // the part of the map nobody covers: below the chips, above the sheet
-  const area = { left: m0.left + 4, right: m0.right - 4, top: box($('.topbar')).bottom, bottom: box($('#sheet')).top - 4 };
+  // on a wide screen the sheet sits beside the map, so only the chips cover its top
+  const area = isWide()
+    ? { left: m0.left + 4, right: m0.right - 4, top: Math.max(m0.top, box($('#chips')).bottom) + 2, bottom: m0.bottom - 4 }
+    : { left: m0.left + 4, right: m0.right - 4, top: box($('.topbar')).bottom, bottom: box($('#sheet')).top - 4 };
   const inside = r => r.left >= area.left && r.right <= area.right && r.top >= area.top && r.bottom <= area.bottom;
   const overlays = ['#posPill', '#btnLocate', '#btnLegend'].map(s => $(s)).filter(el => el.offsetParent);
   const br = S.mode === 'brasil' && BRL, markers = br ? Object.values(BRL.MKB) : Object.values(MK);
@@ -1935,6 +2054,9 @@ $('#legend').addEventListener('click', e => {
 /* ------------------------------------------------------------------ sheet */
 const app = $('#app');
 const NAV_H = 70;
+// margens para enquadrar o mapa: no celular a folha e a barra cobrem a parte de baixo; no computador, nada
+const padTop = mobile => isWide() ? 64 : mobile;
+const padBottom = (state, extra) => isWide() ? extra + 12 : sheetPx(state) + NAV_H + extra;
 function sheetPx(state) {
   const h = app.clientHeight;
   if (state === 'peek') return 232;
@@ -1943,9 +2065,11 @@ function sheetPx(state) {
 }
 function setSheet(state) {
   S.sheet = state; app.style.setProperty('--sheet-h', sheetPx(state) + 'px');
-  app.classList.toggle('sheet-full', state === 'full');
-  $('.fabs').style.visibility = state === 'full' ? 'hidden' : '';
-  $('#posPill').style.visibility = state === 'full' ? 'hidden' : '';
+  // no computador a folha é uma coluna e nunca cobre o mapa
+  const cover = state === 'full' && !isWide();
+  app.classList.toggle('sheet-full', cover);
+  $('.fabs').style.visibility = cover ? 'hidden' : '';
+  $('#posPill').style.visibility = cover ? 'hidden' : '';
   if (!$('#legend').hidden && state !== 'peek') $('#legend').hidden = true;
 }
 (function sheetDrag() {
@@ -2064,7 +2188,7 @@ function smooth(pts) {
 function profileSvg(r) {
   const bins = curveProfile(r), W = 320, H = 70, max = Math.max(...bins, 1), n = bins.length;
   const pts = bins.map((v, i) => [(i / (n - 1)) * W, H - 6 - Math.min(1, v / max) * (H - 14)]);
-  const line = smooth(pts), area = `${line} L${W} ${H} L0 ${H}Z`, pk = bins.indexOf(max), c = routeColor(r);
+  const line = smooth(pts), area = `${line} L${W} ${H} L0 ${H}Z`, pk = bins.indexOf(max), c = routeColorUi(r);
   return `<div class="profile"><div class="profile-head"><strong>Onde estão as curvas</strong><span>Pico perto do km ${Math.round((pk + 0.5) * (r.km / n))}, com ${r.peak10} curvas em 10 km</span></div>
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Intensidade de curvas ao longo da rota">
       <defs><linearGradient id="pg-${r.id}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".42"/><stop offset="1" stop-color="${c}" stop-opacity=".04"/></linearGradient></defs>
@@ -2171,7 +2295,7 @@ function renderPointDetail(p) {
       <a class="btn" href="${wazeUrl(p.lat, p.lon)}" target="_blank" rel="noopener">${ic('i-nav')}Waze</a>
     </div>
     ${routes.length ? `<h3 class="sec-h">${ic('i-route')}Nas rotas</h3><div class="list">${routes.map(r => `
-      <button class="list-row" data-open-route="${r.id}"><span class="pict" style="--c:${routeColor(r)}">${ic('i-route')}</span>
+      <button class="list-row" data-open-route="${r.id}"><span class="pict" style="--c:${routeColorUi(r)}">${ic('i-route')}</span>
       <span class="txt"><strong>${esc(r.name)}</strong><small>${fmtKm(r.km)}, ${esc(CURV[r.curv].toLowerCase())}</small></span></button>`).join('')}</div>` : ''}
     ${p.prec === 'cidade' ? `<p class="note">${ic('i-info')}<span>Localização aproximada, no centro da cidade. A coordenada exata entra na validação com o parceiro.</span></p>` : ''}
     ${isSug && p.example ? `<p class="note">${ic('i-info')}<span>Sugestão de exemplo, criada para mostrar como funciona a curadoria.</span></p>` : ''}
@@ -2189,7 +2313,7 @@ function openRoute(id, opts = {}) {
 }
 function fitRoute(r) {
   map.invalidateSize();
-  map.fitBounds(RL[r.id].line.getBounds(), { paddingTopLeft: [24, window.innerWidth >= 980 ? 152 : 120], paddingBottomRight: [24, sheetPx(S.sheet) + NAV_H + 16], maxZoom: 13, animate: !reduced });
+  map.fitBounds(RL[r.id].line.getBounds(), { paddingTopLeft: [24, padTop(120)], paddingBottomRight: [24, padBottom(S.sheet, 16)], maxZoom: 13, animate: !reduced });
 }
 function openPoint(id, opts = {}) {
   const p = getPoint(id); if (!p) return;
@@ -2197,7 +2321,7 @@ function openPoint(id, opts = {}) {
   closePages(); S.sel = { t: 'p', id }; setNavActive('mapa'); S.tab = 'mapa';
   styleRoutes(); refreshPins(); setSheet('half'); renderSheet(); $('#sheetBody').scrollTop = 0;
   if (opts.fit !== false) {
-    const z = Math.max(map.getZoom(), 10), target = map.project([p.lat, p.lon], z), offset = L.point(0, (sheetPx('half') + NAV_H - 110) / 2);
+    const z = Math.max(map.getZoom(), 10), target = map.project([p.lat, p.lon], z), offset = L.point(0, isWide() ? 0 : (sheetPx('half') + NAV_H - 110) / 2);
     map.setView(map.unproject(target.add(offset), z), z, { animate: !reduced });
   }
 }
@@ -2309,7 +2433,7 @@ function openPage(name) {
   closeModal(); $('#results').hidden = true; $('#legend').hidden = true;
   const html = { inicio: pageInicio, rotas: pageRotas, checkpoint: pageCheckpoint, comunidade: pageComunidade, seguranca: pageSeguranca, sobre: pageSobre }[name]();
   $('#pages').innerHTML = `<section class="page" id="page-${name}">${html}</section>`;
-  S.tab = name; setNavActive(['inicio', 'rotas', 'checkpoint', 'comunidade'].includes(name) ? name : '');
+  S.tab = name; setNavActive(['inicio', 'rotas', 'checkpoint', 'comunidade', 'sobre'].includes(name) ? name : '');
 }
 function setTab(tab) {
   if (tab === 'mapa') { closePages(); S.tab = 'mapa'; setNavActive('mapa'); map.invalidateSize(); return; }
@@ -2333,13 +2457,14 @@ function pageInicio() {
   const mon = ACTIVE_MON.filter(p => st['p:' + p.id]).length, reg = REGIONS.filter(([id]) => st['g:' + id]).length;
   const next = ROUTES.filter(r => !st['r:' + r.id]).map(r => [r, routeDistance(r)]).sort((a, b) => a[1] - b[1])[0];
   const name = S.name.trim();
-  // foto de estrada paulista com licença livre; o crédito fica na própria foto, como pede a licença
-  return `<header class="inicio-hero"><img src="${FOTO.src}" alt="${esc(FOTO.alt)}" width="1080" height="685">
-    <div class="page-top"><div class="row mid">
+  // foto de estrada paulista com licença livre; o crédito fica logo abaixo dela, como pede a licença
+  return `<header class="inicio-top">
+    <div class="inicio-band">
       <button class="home-brand" data-tabgo="sobre" aria-label="Sobre o Rota São Paulo">${LOGO}<span>Rota São Paulo</span></button>
       <button class="sos-btn" data-tabgo="seguranca" aria-label="Segurança e emergência">${ic('i-shield')}SOS</button></div>
-    <div><h1>Boa estrada${name ? `, ${esc(name)}` : ''}</h1><p>${S.pos.mode === 'viagem' ? 'Em viagem' : `Perto de ${esc(S.pos.label)}`}</p></div></div>
-    <a class="foto-credito" href="${esc(FOTO.url)}" target="_blank" rel="noopener">${esc(FOTO.legenda)}. Foto: ${esc(FOTO.autor)}, ${esc(FOTO.licenca)}</a></header>
+    <figure class="inicio-foto"><img src="${FOTO.src}" alt="${esc(FOTO.alt)}" width="1080" height="685">
+      <figcaption><a href="${esc(FOTO.url)}" target="_blank" rel="noopener">${esc(FOTO.legenda)}. Foto: ${esc(FOTO.autor)}, ${esc(FOTO.licenca)}</a></figcaption></figure>
+    <div class="page-top"><h1>Boa estrada${name ? `, ${esc(name)}` : ''}</h1><p>${S.pos.mode === 'viagem' ? 'Em viagem' : `Perto de ${esc(S.pos.label)}`}</p></div></header>
   <div class="page-body">
     <section class="painel" aria-labelledby="odoH">
       <h2 id="odoH">Quilômetros rodados</h2>
@@ -2369,7 +2494,7 @@ function pageInicio() {
 function routeShape(r, size = 66) {
   const k = Math.max(.7, size / 66), P = projectRoute(r, size, size, 6 * k), d = routePath(r, P, 160), st = P(r.ll[0]);
   const dash = r.pave === 'terra' ? `stroke-dasharray="${.5 * k} ${4.5 * k}"` : r.pave === 'misto' ? `stroke-dasharray="${6 * k} ${3.5 * k}"` : '';
-  return `<svg viewBox="0 0 ${size} ${size}" aria-hidden="true"><path d="${d}" fill="none" stroke="var(--casing)" stroke-width="${(5 * k).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${routeColor(r)}" stroke-width="${(2.8 * k).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round" ${dash}/><circle cx="${st[0].toFixed(1)}" cy="${st[1].toFixed(1)}" r="${(3.4 * k).toFixed(1)}" fill="var(--ink)" stroke="var(--casing)" stroke-width="${(1.5 * k).toFixed(1)}"/></svg>`;
+  return `<svg viewBox="0 0 ${size} ${size}" aria-hidden="true"><path d="${d}" fill="none" stroke="var(--casing)" stroke-width="${(5 * k).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${routeColor(r)}" stroke-width="${(2.8 * k).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round" ${dash}/><circle cx="${st[0].toFixed(1)}" cy="${st[1].toFixed(1)}" r="${(3.4 * k).toFixed(1)}" fill="var(--map-ink)" stroke="var(--casing)" stroke-width="${(1.5 * k).toFixed(1)}"/></svg>`;
 }
 const TILES = [
   { id: 'sinuosas', name: 'Curvas no asfalto', test: r => r.pave === 'asfalto' && r.curv === 'sinuosa', icon: 'sign' },
@@ -2438,7 +2563,7 @@ function expCard(e) {
   return `<article class="exp-card"><div class="exp-art">${mapSvg({ W: 400, H: 180, bounds: box, routes: rs, cities: stops, aria: `Mapa das rotas da experiência ${e.name}` })}</div>
     <div class="exp-body"><h3>${esc(e.name)}</h3><div class="badges" style="margin:0"><span class="badge">${ic('i-clock')}${e.days} dias</span><span class="badge">${ic('i-gauge')}${fmtInt(e.km)} km em rotas</span><span class="badge">${ic('i-flag')}${esc(LEVEL[e.level])}</span></div>
     <p class="prose">${esc(e.pitch)}</p><p class="exp-stops">Paradas em ${e.stops.map(esc).join(', ')}.</p>
-    <div class="exp-routes">${rs.map(r => `<button class="mini-chip" data-open-route="${r.id}"><i style="background:${routeColor(r)}"></i>${esc(r.name)}</button>`).join('')}</div>
+    <div class="exp-routes">${rs.map(r => `<button class="mini-chip" data-open-route="${r.id}"><i style="background:${routeColorUi(r)}"></i>${esc(r.name)}</button>`).join('')}</div>
     <button class="btn sun block" data-interest="${e.id}">${ic('i-star')}Quero viver essa experiência</button></div></article>`;
 }
 document.addEventListener('click', e => {
@@ -2492,7 +2617,7 @@ function pageCheckpoint() {
     <h3 class="sec-h">${ic('i-map')}Regiões</h3>
     <div class="stamps">${REGIONS.map(([id, name]) => stampEl('g:' + id, name, 'sem carimbo', 'var(--mata)', ic('i-pin'))).join('')}</div>
     <h3 class="sec-h">${ic('i-route')}Rotas</h3>
-    <div class="stamps">${ROUTES.map(r => `<button class="stamp-btn" data-open-route="${r.id}">${stampEl('r:' + r.id, r.name, fmtKm(r.km), routeColor(r), `<span style="font-size:15px">${esc((r.codes[0] || '').replace('SP-', 'SP ').replace('BR-', 'BR ') || 'SP')}</span>`)}</button>`).join('')}</div>
+    <div class="stamps">${ROUTES.map(r => `<button class="stamp-btn" data-open-route="${r.id}">${stampEl('r:' + r.id, r.name, fmtKm(r.km), routeColorUi(r), `<span style="font-size:15px">${esc((r.codes[0] || '').replace('SP-', 'SP ').replace('BR-', 'BR ') || 'SP')}</span>`)}</button>`).join('')}</div>
     <h3 class="sec-h">${ic('i-star')}Conquistas</h3>
     <div class="medals">${MEDALS.map(m => { const got = m.test(st); return `<div class="medal ${got ? 'got' : ''}"><span class="m-ico">${ic(m.icon)}</span><span><strong>${esc(m.name)}</strong><small>${esc(m.desc)}</small></span></div>`; }).join('')}</div>
     ${n ? '<button class="btn quiet" data-reset="1">Zerar os carimbos desta demonstração</button>' : ''}
@@ -2752,7 +2877,7 @@ function doSearch() {
     const br = BR_ROUTES.filter(r => norm(`${r.name} ${r.codes.join(' ')} ${r.frm} ${r.to}`).includes(q)).slice(0, 5);
     const bp = BR_POINTS.filter(p => norm(p.name + ' ' + p.city).includes(q)).slice(0, 6);
     resEl.innerHTML = [...ee,
-      ...br.map(r => row(`data-open-br-route="${r.id}"`, 'i-route', routeColor(r), r.name, `Rota de ${fmtKm(r.km)} em ${BR_UF[r.uf].nome}`)),
+      ...br.map(r => row(`data-open-br-route="${r.id}"`, 'i-route', routeColorUi(r), r.name, `Rota de ${fmtKm(r.km)} em ${BR_UF[r.uf].nome}`)),
       ...bp.map(p => row(`data-open-br-point="${p.id}"`, CATS[p.cat].icon, catColor(p.cat), p.name, `${p.num ? 'Monumento ' + p.num : CATS[p.cat].short} em ${p.city}, ${p.uf}`)),
     ].join('') || `<div class="sr-empty">Nada encontrado para “${esc(qEl.value)}” fora de São Paulo.</div>`;
     resEl.hidden = false; return;
@@ -2761,7 +2886,7 @@ function doSearch() {
   const pp = [...POINTS, ...allSuggestions().filter(s => s.status !== 'recusado')].filter(p => norm(p.name + ' ' + p.city).includes(q)).slice(0, 6);
   const cc = CITIES.filter(c => norm(c[0]).includes(q)).slice(0, 4);
   const html = [
-    ...rr.map(r => row(`data-open-route="${r.id}"`, 'i-route', routeColor(r), r.name, `Rota de ${fmtKm(r.km)}, ${CURV[r.curv].toLowerCase()}`)),
+    ...rr.map(r => row(`data-open-route="${r.id}"`, 'i-route', routeColorUi(r), r.name, `Rota de ${fmtKm(r.km)}, ${CURV[r.curv].toLowerCase()}`)),
     ...pp.map(p => row(`data-open-point="${p.id}"`, CATS[p.cat].icon, catColor(p.status ? 'comunidade' : p.cat), p.name, `${p.num ? 'Monumento ' + p.num : CATS[p.cat].short} em ${p.city}`)),
     ...cc.map(c => row(`data-goto-city="${esc(c[0])}"`, 'i-pin', 'var(--ink-2)', c[0], 'Cidade, ver no mapa')),
     ...ee,
@@ -2817,7 +2942,7 @@ function mapSvg({ W, H, bounds, routes, labels = [], cities = [], mons = false, 
       [x, y - 10, 'middle', { x0: x - w / 2, y0: y - 23, x1: x + w / 2, y1: y - 7 }], [x, y + 21, 'middle', { x0: x - w / 2, y0: y + 8, x1: x + w / 2, y1: y + 24 }]];
     const o = opts.find(c => free(c[3]));
     if (o) boxes.push(o[3]);
-    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="var(--ink)" stroke="var(--casing)" stroke-width="2"/>${o ? `<text x="${o[0].toFixed(1)}" y="${o[1].toFixed(1)}" text-anchor="${o[2]}" class="hm-city">${esc(name)}</text>` : ''}`;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="var(--map-ink)" stroke="var(--casing)" stroke-width="2"/>${o ? `<text x="${o[0].toFixed(1)}" y="${o[1].toFixed(1)}" text-anchor="${o[2]}" class="hm-city">${esc(name)}</text>` : ''}`;
   }).join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(aria)}"><rect width="${W}" height="${H}" fill="var(--sea)"/><path d="${nb}" fill="var(--land-2)" stroke="var(--sp-edge)" stroke-width=".8" stroke-opacity=".4" fill-rule="evenodd"/><path d="${sp}" fill="var(--land)" stroke="var(--sp-edge)" stroke-width="1.8" fill-rule="evenodd"/>${labels.map(lbl).join('')}${rts}${monRects}${townSvg}</svg>`;
 }
@@ -2865,9 +2990,9 @@ function pitchHtml() {
   </div>
   <section class="p-sec"><h2>Três projetos num app só</h2>
     <div class="fusion">
-      <div class="fus"><span class="pict lg" style="--c:var(--c-mirante)">${ic('i-locate')}</span><div><span class="from">Do RotaBiker</span><strong>Geolocalização</strong><p>Mapa, posição em tempo real, distância até cada ponto e check-in pelo GPS nos monumentos.</p></div></div>
-      <div class="fus"><span class="pict lg" style="--c:var(--c-gastronomia)">${ic('i-comunidade')}</span><div><span class="from">Do Box Experience</span><strong>Novos destinos</strong><p>Cadastro de pontos e roteiros com curadoria, no formato de viagens com apoio e paradas escolhidas.</p></div></div>
-      <div class="fus"><span class="pict lg" style="--c:var(--mata)">${ic('i-shield')}</span><div><span class="from">Da Setur-SP</span><strong>Guia oficial</strong><p>As rotas e os 118 atrativos do Guia de Mototurismo viram uma base viva, atualizada pela comunidade.</p></div></div>
+      <div class="fus"><span class="from">Do RotaBiker</span><div><strong>Geolocalização</strong><p>Mapa, posição em tempo real, distância até cada ponto e check-in pelo GPS nos monumentos.</p></div></div>
+      <div class="fus"><span class="from">Do Box Experience</span><div><strong>Novos destinos</strong><p>Cadastro de pontos e roteiros com curadoria, no formato de viagens com apoio e paradas escolhidas.</p></div></div>
+      <div class="fus"><span class="from">Da Setur-SP</span><div><strong>Guia oficial</strong><p>As rotas e os 118 atrativos do Guia de Mototurismo viram uma base viva, atualizada pela comunidade.</p></div></div>
     </div>
     <div class="fus-out">${LOGO}<p><strong>Rota São Paulo</strong>Rotas por tipo de estrada, distância e curvas, checkpoints com carimbo e central de segurança, no iPhone e no Android.</p></div>
   </section>
@@ -2878,17 +3003,17 @@ function pitchHtml() {
   </section>
   <section class="p-sec"><h2>O que o Estado ganha</h2>
     <div class="gain">
-      <div><span class="pict lg" style="--c:var(--c-natureza)">${ic('i-map')}</span><span><strong>Turismo no interior</strong><p>Checkpoints e roteiros levam o motociclista às 78 estâncias e aos 206 municípios de interesse turístico.</p></span></div>
-      <div><span class="pict lg" style="--c:var(--c-mirante)">${ic('i-gauge')}</span><span><strong>Dados para decidir</strong><p>Fluxo anônimo por rota e região para priorizar sinalização, mirantes, áreas de descanso e campanhas.</p></span></div>
-      <div><span class="pict lg" style="--c:var(--alerta)">${ic('i-shield')}</span><span><strong>Segurança viária</strong><p>O estado teve recorde de 1.329 motociclistas mortos no 1º semestre de 2025. O app leva protocolos por rota, checklist de saída e SOS com posição.</p></span></div>
-      <div><span class="pict lg" style="--c:var(--c-comunidade)">${ic('i-users')}</span><span><strong>Guia sempre atual</strong><p>A comunidade sugere, a Setur e os municípios aprovam. O guia deixa de envelhecer em PDF.</p></span></div>
+      <div><span><strong>Turismo no interior</strong><p>Checkpoints e roteiros levam o motociclista às 78 estâncias e aos 206 municípios de interesse turístico.</p></span></div>
+      <div><span><strong>Dados para decidir</strong><p>Fluxo anônimo por rota e região para priorizar sinalização, mirantes, áreas de descanso e campanhas.</p></span></div>
+      <div><span><strong>Segurança viária</strong><p>O estado teve recorde de 1.329 motociclistas mortos no 1º semestre de 2025. O app leva protocolos por rota, checklist de saída e SOS com posição.</p></span></div>
+      <div><span><strong>Guia sempre atual</strong><p>A comunidade sugere, a Setur e os municípios aprovam. O guia deixa de envelhecer em PDF.</p></span></div>
     </div>
   </section>
   ${bench ? `<section class="p-sec"><h2>O que aprendemos com os apps de moto</h2><div class="bench-wrap"><table class="bench"><thead><tr><th>App</th><th>Ponto forte</th><th>O que entra no Rota São Paulo</th></tr></thead><tbody>${bench}</tbody></table></div></section>` : ''}
   <section class="p-sec"><h2>Como implantar</h2>
     <div class="road">
-      <div><h3><span class="pict" style="--c:var(--mata)">${ic('i-flag')}</span>Primeira versão</h3><ul><li>App para iPhone e Android, com mapa e GPS</li><li>Rotas do Guia SP com filtros por estrada, distância e curvas</li><li>Nota da paisagem de cada rota, pelas listas de estradas bonitas</li><li>Cadastro de pontos com curadoria</li><li>Checkpoints e check-in nos monumentos</li><li>Central de segurança, checklist e SOS</li></ul></div>
-      <div><h3><span class="pict" style="--c:var(--sol)">${ic('i-route')}</span>Segunda fase</h3><ul><li>Navegação curva a curva e mapas offline</li><li>Nota dos motociclistas ao lado da nota das listas</li><li>Detecção de queda com alerta automático ao contato</li><li>Alertas de interdição, obras e clima com DER, ARTESP e Defesa Civil</li><li>Selo Moto Amigo para parceiros</li><li>Painel do Estado com dados anônimos e experiências com agências credenciadas</li></ul></div>
+      <div><h3>Primeira versão</h3><ul><li>App para iPhone e Android, com mapa e GPS</li><li>Rotas do Guia SP com filtros por estrada, distância e curvas</li><li>Nota da paisagem de cada rota, pelas listas de estradas bonitas</li><li>Cadastro de pontos com curadoria</li><li>Checkpoints e check-in nos monumentos</li><li>Central de segurança, checklist e SOS</li></ul></div>
+      <div><h3>Segunda fase</h3><ul><li>Navegação curva a curva e mapas offline</li><li>Nota dos motociclistas ao lado da nota das listas</li><li>Detecção de queda com alerta automático ao contato</li><li>Alertas de interdição, obras e clima com DER, ARTESP e Defesa Civil</li><li>Selo Moto Amigo para parceiros</li><li>Painel do Estado com dados anônimos e experiências com agências credenciadas</li></ul></div>
     </div>
   </section>
   <section class="p-sec"><h2>Como testar o protótipo</h2>
@@ -2955,7 +3080,7 @@ function styleBrasil() {
   Object.entries(BRL.states).forEach(([uf, poly]) => {
     if (uf === 'SP') { poly.setStyle({ color: c('--marca-verde'), weight: 1.5, opacity: 1, fillColor: c('--marca-verde'), fillOpacity: .94 }); return; }
     const on = !sel || uf === sel;
-    poly.setStyle({ color: uf === sel ? c('--ink') : c('--sp-edge'), weight: uf === sel ? 2 : .8, opacity: uf === sel ? 1 : .8, fillColor: on ? c('--land') : c('--land-2'), fillOpacity: 1 });
+    poly.setStyle({ color: uf === sel ? c('--map-ink') : c('--sp-edge'), weight: uf === sel ? 2 : .8, opacity: uf === sel ? 1 : .8, fillColor: on ? c('--land') : c('--land-2'), fillOpacity: 1 });
   });
   BRL.roads.setStyle({ color: c('--road-major'), weight: 1.2, opacity: 1 });
   const cas = c('--casing'), sh = c('--route-shadow'), focus = S.sel && S.sel.t === 'brr' ? S.sel.id : null;
@@ -2978,7 +3103,7 @@ function refreshBrPins() {
 function brZoomRules() { $('#map').classList.toggle('map--far', map.getZoom() < 6.5); }
 function fitBrasil(bounds, maxZoom = 8, animate = !reduced) {
   map.invalidateSize();
-  map.fitBounds(bounds, { paddingTopLeft: [16, window.innerWidth >= 980 ? 96 : 72], paddingBottomRight: [16, sheetPx(S.sheet) + NAV_H + 12], maxZoom, animate });
+  map.fitBounds(bounds, { paddingTopLeft: [16, isWide() ? 24 : 72], paddingBottomRight: [16, padBottom(S.sheet, 12)], maxZoom, animate });
 }
 function syncBrasilBtn() {
   const b = $('#btnBrasil'), on = S.mode === 'brasil';
@@ -3016,7 +3141,7 @@ function leaveBrasil(opts = {}) {
   ['nb', 'sp', 'urban', 'lakes', 'rivers', 'roadsMid', 'roadsMajor'].forEach(k => LAYERS[k].addTo(map));
   if (meMarker) meMarker.addTo(map);
   app.classList.remove('modo-brasil'); $('#legend').hidden = true; syncBrasilBtn();
-  if (opts.fit !== false) map.fitBounds(SP_BOUNDS, { paddingTopLeft: [12, window.innerWidth >= 980 ? 152 : 116], paddingBottomRight: [12, sheetPx('peek') + NAV_H + 8], animate: false });
+  if (opts.fit !== false) map.fitBounds(SP_BOUNDS, { paddingTopLeft: [12, padTop(116)], paddingBottomRight: [12, padBottom('peek', 8)], animate: false });
   map.setMinZoom(5.5); map.setMaxBounds(SP_MAX);
   refreshPins(); styleRoutes(); zoomRules(); setSheet('peek'); renderSheet();
 }
@@ -3038,7 +3163,7 @@ function openBrPoint(id, opts = {}) {
   S.brUf = p.uf; S.sel = { t: 'brp', id }; styleBrasil(); refreshBrPins();
   setSheet('half'); renderSheet(); $('#sheetBody').scrollTop = 0;
   if (opts.fit !== false) {
-    const z = Math.max(map.getZoom(), 9), target = map.project([p.lat, p.lon], z), offset = L.point(0, (sheetPx('half') + NAV_H - 110) / 2);
+    const z = Math.max(map.getZoom(), 9), target = map.project([p.lat, p.lon], z), offset = L.point(0, isWide() ? 0 : (sheetPx('half') + NAV_H - 110) / 2);
     map.setView(map.unproject(target.add(offset), z), z, { animate: !reduced });
   }
 }
@@ -3159,7 +3284,7 @@ function boot() {
   renderChips(); styleBase(); syncSuggestionMarkers(); refreshPins(); updateMe(); updateStampCount();
   setSheet('peek'); renderSheet();
   $('#pitch').innerHTML = pitchHtml();
-  map.fitBounds(SP_BOUNDS, { paddingTopLeft: [12, window.innerWidth >= 980 ? 152 : 116], paddingBottomRight: [12, sheetPx('peek') + NAV_H + 8], animate: false });
+  map.fitBounds(SP_BOUNDS, { paddingTopLeft: [12, padTop(116)], paddingBottomRight: [12, padBottom('peek', 8)], animate: false });
   zoomRules();
   openFromHash();
   setTimeout(() => map.invalidateSize(), 50);

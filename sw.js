@@ -1,4 +1,4 @@
-const CACHE = 'rotasp-4d7d5d4110';
+const CACHE = 'rotasp-b2d5101c4f';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 // reload: a cópia para abrir sem internet vem do servidor, não do cache de 10 minutos do navegador
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting())); });
